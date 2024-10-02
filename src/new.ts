@@ -36,6 +36,14 @@ class MenuMonitor {
     );
   }
 
+  private isElementVisible(element: HTMLElement) {
+    const computedStyles = window.getComputedStyle(element);
+    return (
+      computedStyles.display !== "none" &&
+      computedStyles.visibility !== "hidden"
+    );
+  }
+
   private getVisibleNavElements(container: HTMLElement | null): HTMLElement[] {
     if (!container) return [];
     const navElements = container.querySelectorAll("nav");
@@ -54,7 +62,11 @@ class MenuMonitor {
     const iframe = document.getElementById(containerId) as HTMLIFrameElement;
     const dom = iframe?.contentWindow?.document || document;
 
-    const header = dom.querySelector("header");
+    const headers = dom.querySelectorAll("header");
+    const header = Array.from(headers).filter((header) =>
+      this.isElementVisible(header)
+    )[0];
+
     if (!header) {
       console.error("Error: No header element found.");
       this.headerElement = null;
@@ -107,6 +119,8 @@ class MenuMonitor {
         this.hiddenElements.set(element, true);
       }
     });
+
+    console.log(this.hiddenElements);
   }
 
   private createInvisibleElementsMap(container: HTMLElement) {
@@ -286,6 +300,7 @@ class MenuMonitor {
         this.displayChangedElements.set(element, currentDisplay);
       }
     });
+    console.log(this.displayChangedElements);
   }
 
   private recordDetailsChanges() {
@@ -462,6 +477,8 @@ class MenuMonitor {
         parent.style.display = displayValue;
       }
       element.style.display = displayValue;
+      console.log({ displayValue });
+
       manualCloseRequired = true;
     });
     if (manualCloseRequired) {
