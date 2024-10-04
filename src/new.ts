@@ -314,6 +314,7 @@ class MenuMonitor {
     this.invisibleElements.forEach((_, element) => {
       const visibility = window.getComputedStyle(element).visibility;
       if (visibility !== "hidden") {
+        this.visibilityChangedElements.clear();
         this.visibilityChangedElements.set(element, visibility);
       }
     });
@@ -323,9 +324,21 @@ class MenuMonitor {
     this.blurElements.forEach((_, element) => {
       const opacity = parseFloat(window.getComputedStyle(element).opacity);
       if (opacity > 0) {
-        this.opacityChangedElements.set(element, opacity);
+        let shouldClearSet = true;
+        const keysArray = Array.from(this.opacityChangedElements.keys());
+        for (let existingElement of keysArray) {
+          if (existingElement.contains(element)) {
+            shouldClearSet = false;
+            break;
+          }
+        }
+        if (shouldClearSet)
+          this.opacityChangedElements.clear(),
+            this.opacityChangedElements.set(element, opacity);
       }
     });
+
+    console.log(this.opacityChangedElements);
   }
 
   private handleMouseOut() {
