@@ -119,8 +119,6 @@ class MenuMonitor {
         this.hiddenElements.set(element, true);
       }
     });
-
-    console.log(this.hiddenElements);
   }
 
   private createInvisibleElementsMap(container: HTMLElement) {
@@ -322,7 +320,7 @@ class MenuMonitor {
   }
 
   private recordBlurredChanges() {
-    this.invisibleElements.forEach((_, element) => {
+    this.blurElements.forEach((_, element) => {
       const opacity = parseFloat(window.getComputedStyle(element).opacity);
       if (opacity > 0) {
         this.opacityChangedElements.set(element, opacity);
@@ -405,13 +403,17 @@ class MenuMonitor {
     this.hiddenElements.forEach((_, element) => {
       element.style.removeProperty("display");
     });
-    this.headerElement?.querySelectorAll("details")?.forEach((element) => {
+    // this.headerElement?.querySelectorAll("details")?.forEach((element) => {
+    //   element.removeAttribute("open");
+    // });
+    this.detailChangedElements.forEach((_, element) => {
       element.removeAttribute("open");
     });
     this.visibilityChangedElements.forEach((_, element) => {
       element.style.removeProperty("visibility");
     });
     this.opacityChangedElements.forEach((_, element) => {
+      this.removeCssForNikura(element);
       element.style.removeProperty("opacity");
     });
     this.displayChangedElements.clear();
@@ -515,6 +517,8 @@ class MenuMonitor {
     let hasChanges = false;
     this.opacityChangedElements.forEach((opacity, element: HTMLElement) => {
       element.style.opacity = `${opacity}`;
+      // console.log(element);
+      this.applyCssForNikura(element);
       hasChanges = true;
     });
     this.adjustMenuMaxHeight();
@@ -547,6 +551,149 @@ class MenuMonitor {
       container.style.cursor = "auto";
       container.style.height = "100%";
     });
+  }
+
+  private applyCssForNikura(element: HTMLElement) {
+    // Select the container element
+    const container = element.querySelector(
+      ".bg-white.transition.ease-out.duration-700.delay-200"
+    ) as HTMLElement;
+
+    if (container) {
+      if (!container.id) container.id = "container-from-adams";
+      const parentElement = container.parentElement as HTMLElement;
+      if (parentElement) {
+        parentElement.style.setProperty("opacity", "1", "important");
+      }
+
+      // Set container transform and opacity
+      container.style.setProperty("transform", "translateY(0)", "important");
+      container.style.setProperty("opacity", "1", "important");
+
+      // Select the <ul> inside the container and apply the specified styles
+      const ulElement = container.querySelector("ul") as HTMLElement;
+      if (ulElement) {
+        if (!ulElement.id) ulElement.id = "ulElement";
+        ulElement.style.setProperty("opacity", "1", "important");
+        ulElement.style.setProperty("pointer-events", "auto", "important");
+        ulElement.style.setProperty(
+          "transition",
+          "opacity 0.1s ease-out 0.2s, pointer-events 0.1s ease-out 0.2s",
+          "important"
+        );
+        ulElement.style.setProperty("padding-top", "40px", "important");
+        ulElement.style.setProperty("padding-bottom", "80px", "important");
+        ulElement.style.setProperty("font-size", "12px", "important");
+        ulElement.style.setProperty("min-height", "520px", "important");
+        ulElement.style.setProperty("width", "100%", "important");
+
+        const innerElement = ulElement.querySelector(
+          ".transition.duration-700.ease-out.h-full.delay-800"
+        ) as HTMLElement;
+
+        // Apply the new styles to the innerElement
+        if (innerElement) {
+          innerElement.style.setProperty("opacity", "1", "important");
+          innerElement.style.setProperty(
+            "transform",
+            "translateX(0)",
+            "important"
+          );
+          innerElement.style.setProperty(
+            "transition",
+            "transform 0.1s ease-out 0.5s",
+            "important"
+          );
+          innerElement.style.setProperty("height", "100%", "important");
+
+          const opacityElement = innerElement.querySelector(
+            ".opacity-0.transition.duration-1000.delay-500.h-full.relative"
+          ) as HTMLElement;
+
+          // Set opacity to 1
+          if (opacityElement) {
+            opacityElement.style.setProperty("opacity", "1", "important");
+          }
+        }
+      }
+
+      const ulElementById = document.getElementById("ulElement");
+      const containerElementById = document.getElementById(
+        "container-from-adams"
+      );
+
+      if (ulElementById || containerElementById) {
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        let styles = "";
+        if (ulElementById) {
+          styles += `#ulElement { opacity: 1 !important;}`;
+        }
+        if (containerElementById) {
+          styles += `#container-from-adams {opacity: 1 !important;}`;
+        }
+        styleSheet.innerText = styles;
+        document.head.appendChild(styleSheet);
+      }
+    }
+  }
+
+  private removeCssForNikura(element: HTMLElement) {
+    // Select the container element
+    const container = element.querySelector(
+      ".bg-white.transition.ease-out.duration-700.delay-200"
+    ) as HTMLElement;
+
+    if (container) {
+      const parentElement = container.parentElement as HTMLElement;
+      if (parentElement) {
+        parentElement.style.removeProperty("opacity");
+      }
+
+      // Remove inline styles from the container
+      container.style.removeProperty("transform");
+      container.style.removeProperty("opacity");
+
+      // Select the <ul> inside the container and remove the specified styles
+      const ulElement = container.querySelector("ul") as HTMLElement;
+      if (ulElement) {
+        ulElement.style.removeProperty("opacity");
+        ulElement.style.removeProperty("pointer-events");
+        ulElement.style.removeProperty("transition");
+        ulElement.style.removeProperty("padding-top");
+        ulElement.style.removeProperty("padding-bottom");
+        ulElement.style.removeProperty("font-size");
+        ulElement.style.removeProperty("min-height");
+        ulElement.style.removeProperty("width");
+
+        // Remove styles from the inner element if it exists
+        const innerElement = ulElement.querySelector(
+          ".transition.duration-700.ease-out.h-full.delay-800"
+        ) as HTMLElement;
+
+        if (innerElement) {
+          innerElement.style.removeProperty("opacity");
+          innerElement.style.removeProperty("transform");
+          innerElement.style.removeProperty("transition");
+          innerElement.style.removeProperty("height");
+
+          // Remove opacity from the nested opacity element if present
+          const opacityElement = innerElement.querySelector(
+            ".opacity-0.transition.duration-1000.delay-500.h-full.relative"
+          ) as HTMLElement;
+
+          if (opacityElement) {
+            opacityElement.style.removeProperty("opacity");
+          }
+        }
+      }
+
+      // Remove the dynamically added styles from the <style> tag if it exists
+      const styleTag = document.querySelector("style#dynamic-styles");
+      if (styleTag) {
+        styleTag.remove();
+      }
+    }
   }
 
   public reopenMenu() {
