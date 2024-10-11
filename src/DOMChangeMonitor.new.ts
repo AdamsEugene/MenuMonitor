@@ -375,36 +375,15 @@ class DOMChangeMonitor {
         element.textContent = (change as CharacterDataChange).newValue;
         break;
     }
-
-    // function setDisplay(element: HTMLElement, displayValue: string) {
-    //   const uniqueId =
-    //     "display-rule-" + Math.random().toString(36).substr(2, 9);
-    //   element.id = uniqueId;
-
-    //   let styleSheet = document.styleSheets[0] as CSSStyleSheet;
-    //   if (!styleSheet) {
-    //     const style = document.createElement("style");
-    //     document.head.appendChild(style);
-    //     styleSheet = style.sheet as CSSStyleSheet;
-    //   }
-
-    //   const ruleText = `#${uniqueId} { display: ${displayValue} !important; }`;
-    //   styleSheet.insertRule(ruleText, styleSheet.cssRules.length);
-    // }
-    console.log(`Applied change to:`, element, change);
+    // console.log(`Applied change to:`, element, change);
   }
 
   private setDisplay(element: HTMLElement, displayValue: string) {
     const uniqueId = "display-rule-" + Math.random().toString(36).substr(2, 9);
     element.id = uniqueId;
 
-    // Apply the display style directly to the element
     element.style.setProperty("display", displayValue, "important");
-
-    // Add a data attribute for easier identification
     element.setAttribute("data-display-rule", "true");
-
-    // Create a style element for this specific rule
     const styleElement = this.dom.createElement("style");
     styleElement.textContent = `#${uniqueId} { display: ${displayValue} !important; }`;
     this.dom.head.appendChild(styleElement);
