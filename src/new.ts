@@ -1,7 +1,7 @@
 class MenuMonitor {
   private hoverTimer: ReturnType<typeof setTimeout> | null = null;
   private hoverElement: HTMLElement | null = null;
-  private hoverDuration: number = 500;
+  private hoverDuration: number = 1000;
   private mutations: MutationRecord[] = [];
   private previousMutations: MutationRecord[] = [];
   private isRecording: boolean = false;
@@ -36,11 +36,14 @@ class MenuMonitor {
     );
   }
 
-  private isElementVisible(element: HTMLElement) {
+  private isElementVisible(element: Element): boolean {
     const computedStyles = window.getComputedStyle(element);
+    const rect = element.getBoundingClientRect();
+
     return (
       computedStyles.display !== "none" &&
-      computedStyles.visibility !== "hidden"
+      computedStyles.visibility !== "hidden" &&
+      rect.width > 10 // Check if the width of the element's client rect is greater than 10px
     );
   }
 
@@ -55,7 +58,7 @@ class MenuMonitor {
     return visibleNavElements.length > 0 ? visibleNavElements : [container];
   }
 
-  public init(containerId = "recordingPlayer", debugMode = false) {
+  public init(containerId = "recordingPlayer1", debugMode = false) {
     this.debugMode = debugMode;
 
     const document = window.document;
@@ -84,13 +87,15 @@ class MenuMonitor {
       parentElement = currentElement.parentElement as HTMLElement;
     }
 
-    this.headerElement = currentElement;
+    const navById = dom.getElementById("main-nav");
+    this.headerElement = navById || currentElement;
 
-    if (this.headerElement) {
+    if (this.headerElement || navById) {
       this.attachMutationObserver();
       this.attachHoverListener();
       this.attachReopenMenuListener();
-      this.navElement = this.getVisibleNavElements(this.headerElement)[0];
+      this.navElement =
+        navById || this.getVisibleNavElements(this.headerElement)[0];
       const detailsElements = this.headerElement?.querySelectorAll("details");
       console.log("nav: ", this.navElement);
 
@@ -530,6 +535,8 @@ class MenuMonitor {
     let hasChanges = false;
     this.opacityChangedElements.forEach((opacity, element: HTMLElement) => {
       element.style.opacity = `${opacity}`;
+      element.style.setProperty("transform", "scale(1)", "important");
+
       // console.log(element);
       this.applyCssForNikura(element);
       hasChanges = true;

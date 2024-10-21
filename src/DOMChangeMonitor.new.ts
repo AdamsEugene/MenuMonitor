@@ -47,6 +47,7 @@ class DOMChangeMonitor {
   private observer: MutationObserver;
   private config: MutationObserverInit;
   private dom: Document;
+  private initialNavState: InitialChange | null = null;
 
   constructor() {
     this.observer = new MutationObserver(this.handleMutations.bind(this));
@@ -97,6 +98,8 @@ class DOMChangeMonitor {
       console.log("nav: ", this.navElement);
 
       if (this.navElement) {
+        // Capture initial nav state
+        this.initialNavState = this.captureElementState(this.navElement);
         this.navElement.addEventListener(
           "mouseover",
           this.startRecordingWithDelay.bind(this)
@@ -105,8 +108,37 @@ class DOMChangeMonitor {
           "mouseout",
           this.stopRecording.bind(this)
         );
+      } else {
+        this.initialNavState = this.captureElementState(this.headerElement);
+        this.headerElement.addEventListener(
+          "mouseover",
+          this.startRecordingWithDelay.bind(this)
+        );
+        this.headerElement.addEventListener(
+          "mouseout",
+          this.stopRecording.bind(this)
+        );
       }
     }
+  }
+
+  private captureElementState(element: Element): InitialChange {
+    return {
+      type: "initial",
+      attributes: Array.from(element.attributes).map((attr) => ({
+        name: attr.name,
+        value: attr.value,
+      })),
+      style: this.getAllStyles(element),
+      children: Array.from(element.children).map(
+        this.captureElementState.bind(this)
+      ),
+      textContent:
+        element.childNodes.length === 1 &&
+        element.childNodes[0].nodeType === Node.TEXT_NODE
+          ? element.childNodes[0].textContent
+          : null,
+    };
   }
 
   private attachReopenMenuListener(): void {
@@ -155,7 +187,10 @@ class DOMChangeMonitor {
 
   private findNearestNavAncestor(element: Element): Element | null {
     while (element && element !== document.body) {
-      if (element.tagName.toLowerCase() === "nav") {
+      if (
+        element.tagName.toLowerCase() === "nav" ||
+        element.tagName.toLowerCase() === "header"
+      ) {
         return element;
       }
       element = element.parentElement!;
@@ -328,6 +363,9 @@ class DOMChangeMonitor {
             if (prop === "display") {
               element.style.setProperty("display", value, "important");
               this.setDisplay(element, value);
+            } else if (prop === "opacity") {
+              element.style.setProperty(prop, value, "important");
+              element.style.setProperty("transform", "scale(1)", "important");
             } else {
               element.style.setProperty(prop, value, "important");
             }
