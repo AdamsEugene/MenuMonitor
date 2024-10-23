@@ -21,6 +21,7 @@ class MenuMonitor {
   private debugMode: boolean;
 
   constructor(debugMode = false) {
+    console.log("MenuMonitor");
     this.debugMode = debugMode;
   }
 
@@ -88,14 +89,20 @@ class MenuMonitor {
     }
 
     const navById = dom.getElementById("main-nav");
-    this.headerElement = navById || currentElement;
+    const navByClass = dom.querySelector(
+      ".viair-header-main-links"
+    ) as HTMLElement;
 
-    if (this.headerElement || navById) {
+    this.headerElement = navById || navByClass || currentElement;
+
+    if (this.headerElement || navById || navByClass) {
       this.attachMutationObserver();
       this.attachHoverListener();
       this.attachReopenMenuListener();
       this.navElement =
-        navById || this.getVisibleNavElements(this.headerElement)[0];
+        navById ||
+        navByClass ||
+        this.getVisibleNavElements(this.headerElement)[0];
       const detailsElements = this.headerElement?.querySelectorAll("details");
       console.log("nav: ", this.navElement);
 

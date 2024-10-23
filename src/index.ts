@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const useNewAlgorithm = [2548, 1485, 2691, 2779, 2303, 2522, 2384, 1810];
+const useNewAlgorithm = [2548, 1485, 2691, 2779, 2303, 2522, 2384, 1810, 2818];
 
 const getThis = (item: string) => {
   const parsedUrl = new URL(window.location.href);
@@ -17,8 +17,6 @@ const getThis = (item: string) => {
 
   return searchParams.get(item) || hashParams.get(item) || 0;
 };
-
-console.log("getThis: ", getThis("idSite"));
 
 if (useNewAlgorithm.includes(+getThis("idSite"))) {
   window.MenuMonitor = new HoverCapture();

@@ -36,12 +36,17 @@ class HoverCapture {
     }
 
     const navById = this.dom.getElementById("main-nav");
+    const navByClass = this.dom.querySelector(
+      ".viair-header-main-links"
+    ) as HTMLElement;
 
-    this.headerElement = navById || this.findLargestContainer(header);
+    this.headerElement =
+      navById || navByClass || this.findLargestContainer(header);
     if (this.headerElement) {
       this.attachReopenMenuListener();
       this.navElement =
         navById ||
+        navByClass ||
         this.getVisibleNavElements(this.headerElement)[0] ||
         this.headerElement;
       console.log("header: ", this.navElement);
@@ -98,7 +103,7 @@ class HoverCapture {
     return (
       computedStyles.display !== "none" &&
       computedStyles.visibility !== "hidden" &&
-      rect.width > 10 
+      rect.width > 10
     );
   }
 
@@ -269,6 +274,7 @@ class HoverCapture {
 
     this.handleMenuItemHover(element);
     this.handleMegaMenu(element);
+    this.handleViairHeader(element);
     console.log("Simulated hover for:", element);
   }
 
@@ -296,6 +302,7 @@ class HoverCapture {
           }, index * 10);
           this.handleMenuItemClear(item.element);
           this.handleMegaMenuClear(item.element);
+          this.handleViairHeaderClear(item.element);
         });
       this.hoverPath = [];
     } else {
@@ -312,6 +319,23 @@ class HoverCapture {
     });
   }
 
+  private handleViairHeader(element: HTMLElement) {
+    if (element.classList.contains("viair-header-link-first-level")) {
+      const ViairMegaMenuContent = element.querySelector(
+        ".viair-header-mega-menu"
+      ) as HTMLElement;
+
+      if (ViairMegaMenuContent) {
+        const newId = "the_id_you_added";
+        ViairMegaMenuContent.id = newId;
+        const style = this.dom.createElement("style");
+        style.type = "text/css";
+        style.innerHTML = `#${newId} { opacity: 1 !important; }`;
+        this.dom.head.appendChild(style);
+        ViairMegaMenuContent.style.setProperty("opacity", "1", "important");
+      }
+    }
+  }
   private handleMegaMenu(element: HTMLElement): void {
     if (element.classList.contains("header__menu-li-js")) {
       const megaMenuContent = element.querySelector(
@@ -358,6 +382,18 @@ class HoverCapture {
       ) as HTMLElement;
       if (megaMenuContent) {
         megaMenuContent.style.setProperty("opacity", "0");
+      }
+    }
+  }
+
+  private handleViairHeaderClear(element: HTMLElement) {
+    if (element.classList.contains("viair-header-link-first-level")) {
+      const ViairMegaMenuContent = element.querySelector(
+        ".viair-header-mega-menu"
+      ) as HTMLElement;
+      if (ViairMegaMenuContent) {
+        ViairMegaMenuContent.style.setProperty("opacity", "0");
+        ViairMegaMenuContent.removeAttribute("id");
       }
     }
   }
