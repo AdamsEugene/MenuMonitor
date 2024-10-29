@@ -39,14 +39,21 @@ class HoverCapture {
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub"
     ) as HTMLElement;
 
-    const header = this.findVisibleHeader() || navById || navByClass;
+    const header =
+      this.findVisibleHeader() ||
+      navById ||
+      navByClass ||
+      this.getFirstVisibleNav();
     if (!header) {
       console.error("Error: No visible header element found.");
       return;
     }
 
     this.headerElement =
-      navById || navByClass || this.findLargestContainer(header);
+      navById ||
+      navByClass ||
+      this.findLargestContainer(header) ||
+      this.getFirstVisibleNav();
     if (this.headerElement) {
       this.attachReopenMenuListener();
       this.navElement =
@@ -87,6 +94,29 @@ class HoverCapture {
   private attachReopenMenuListener(): void {
     document.addEventListener("reopen-menu", this.handleReopenMenu.bind(this));
     document.addEventListener("close-menu", this.handleCloseMenu.bind(this));
+  }
+
+  private getFirstVisibleNav(): HTMLElement | null {
+    const navs = this.dom.querySelectorAll("nav") as NodeListOf<HTMLElement>;
+
+    const navArray = Array.from(navs) as HTMLElement[];
+
+    for (const nav of navArray) {
+      const rect = nav.getBoundingClientRect();
+      const computedStyle = window.getComputedStyle(nav);
+
+      const isVisible =
+        computedStyle.display !== "none" &&
+        computedStyle.visibility === "visible";
+      const hasChildren = nav.children.length > 0;
+      const hasReasonableDimensions = rect.width > 100 && rect.height > 50;
+
+      if (isVisible && hasChildren && hasReasonableDimensions) {
+        return nav as HTMLElement;
+      }
+    }
+
+    return null;
   }
 
   private hasSamePositionSize(ele1: Element, ele2: Element): boolean {
@@ -335,7 +365,7 @@ class HoverCapture {
           this.siteSpecifics.handleFollowMenuClear(item.element);
           this.siteSpecifics.handleFlowerMenuClear(item.element);
           this.siteSpecifics.handlePureSportMenuClear(item.element);
-          this.siteSpecifics.handleAKTMenu(item.element);
+          this.siteSpecifics.handleAKTMenuClear(item.element);
         });
       this.hoverPath = [];
     } else {

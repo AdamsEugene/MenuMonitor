@@ -122,6 +122,14 @@ export default class Specifics {
     if (element.classList.contains("big:relative")) {
       const megaMenuContent = this.getMenuContent(element, "div");
       if (megaMenuContent) {
+        const newId = "the_id_for_akt";
+        megaMenuContent.id = newId;
+
+        const style = this.dom.createElement("style");
+        style.type = "text/css";
+        style.innerHTML = `#${newId} { display: block !important; }`;
+        this.dom.head.appendChild(style);
+
         this.setStyle(megaMenuContent, { display: "block" });
       }
     }
@@ -213,6 +221,7 @@ export default class Specifics {
       const megaMenuContent = this.getMenuContent(element, "div");
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, { display: "none" }, true);
+        megaMenuContent.removeAttribute("id");
       }
     }
   }

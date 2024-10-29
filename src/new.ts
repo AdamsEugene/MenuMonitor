@@ -77,7 +77,8 @@ class MenuMonitor {
         this.isElementVisible(header)
       )[0] ||
       navById ||
-      navByClass;
+      navByClass ||
+      this.getFirstVisibleNav(dom);
 
     if (!header) {
       console.error("Error: No header element found.");
@@ -96,7 +97,8 @@ class MenuMonitor {
       parentElement = currentElement.parentElement as HTMLElement;
     }
 
-    this.headerElement = navById || navByClass || currentElement;
+    this.headerElement =
+      navById || navByClass || currentElement || this.getFirstVisibleNav(dom);
 
     if (this.headerElement || navById || navByClass) {
       this.attachMutationObserver();
@@ -105,6 +107,7 @@ class MenuMonitor {
       this.navElement =
         navById ||
         navByClass ||
+        this.getFirstVisibleNav(dom) ||
         this.getVisibleNavElements(this.headerElement)[0];
       const detailsElements = this.headerElement?.querySelectorAll("details");
       console.log("nav: ", this.navElement);
@@ -118,6 +121,29 @@ class MenuMonitor {
         }
       }
     }
+  }
+
+  private getFirstVisibleNav(dom: Document): HTMLElement | null {
+    const navs = document.querySelectorAll("nav") as NodeListOf<HTMLElement>;
+
+    const navArray = Array.from(navs) as HTMLElement[];
+
+    for (const nav of navArray) {
+      const rect = nav.getBoundingClientRect();
+      const computedStyle = window.getComputedStyle(nav);
+
+      const isVisible =
+        computedStyle.display !== "none" &&
+        computedStyle.visibility === "visible";
+      const hasChildren = nav.children.length > 0;
+      const hasReasonableDimensions = rect.width > 100 && rect.height > 50;
+
+      if (isVisible && hasChildren && hasReasonableDimensions) {
+        return nav as HTMLElement;
+      }
+    }
+
+    return null;
   }
 
   private createDetailsElementMap(
