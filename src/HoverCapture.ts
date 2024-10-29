@@ -97,7 +97,7 @@ class HoverCapture {
   }
 
   private getFirstVisibleNav(): HTMLElement | null {
-    const navs = this.dom.querySelectorAll("nav") as NodeListOf<HTMLElement>;
+    const navs = document.querySelectorAll("nav") as NodeListOf<HTMLElement>;
 
     const navArray = Array.from(navs) as HTMLElement[];
 
@@ -111,12 +111,36 @@ class HoverCapture {
       const hasChildren = nav.children.length > 0;
       const hasReasonableDimensions = rect.width > 100 && rect.height > 50;
 
-      if (isVisible && hasChildren && hasReasonableDimensions) {
+      const hasNavWrapper = nav.querySelector(".nav-wrapper") !== null;
+      const hasSkipToContent =
+        hasNavWrapper &&
+        this.containsTextContent(
+          nav.querySelector(".nav-wrapper"),
+          "Skip to content"
+        );
+
+      if (
+        isVisible &&
+        hasChildren &&
+        hasReasonableDimensions &&
+        (!hasNavWrapper || !hasSkipToContent)
+      ) {
         return nav as HTMLElement;
       }
     }
 
     return null;
+  }
+
+  private containsTextContent(element: Element | null, text: string): boolean {
+    if (!element) return false;
+
+    return Array.from(element.childNodes).some((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        return node.textContent?.includes(text) ?? false;
+      }
+      return this.containsTextContent(node as Element, text);
+    });
   }
 
   private hasSamePositionSize(ele1: Element, ele2: Element): boolean {
@@ -334,6 +358,7 @@ class HoverCapture {
     this.siteSpecifics.handleFlowerMenu(element);
     this.siteSpecifics.handlePureSportMenu(element);
     this.siteSpecifics.handleAKTMenu(element);
+    this.siteSpecifics.handleNubianceHoverClear(element);
     console.log("Simulated hover for:", element);
   }
 
@@ -366,6 +391,7 @@ class HoverCapture {
           this.siteSpecifics.handleFlowerMenuClear(item.element);
           this.siteSpecifics.handlePureSportMenuClear(item.element);
           this.siteSpecifics.handleAKTMenuClear(item.element);
+          this.siteSpecifics.handleNubianceHoverClear(item.element);
         });
       this.hoverPath = [];
     } else {

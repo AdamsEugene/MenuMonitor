@@ -135,6 +135,20 @@ export default class Specifics {
     }
   }
 
+  public handleNubianceHover(element: HTMLElement): void {
+    if (element.classList.contains("menu__item")) {
+      const subMenu = this.getMenuContent(element, ".header__dropdown");
+      if (subMenu) {
+        this.setStyle(subMenu, {
+          opacity: "1",
+          visibility: "visible",
+          "background-color ": "rgb(255, 255, 255)",
+          transform: "scale(1)",
+        });
+      }
+    }
+  }
+
   public handleFollowMenuClear(element: HTMLElement): void {
     if (element.classList.contains("contains-children")) {
       const followMenuContent = this.getMenuContent(element, ".nav-rows");
@@ -222,6 +236,20 @@ export default class Specifics {
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, { display: "none" }, true);
         megaMenuContent.removeAttribute("id");
+      }
+    }
+  }
+
+  public handleNubianceHoverClear(element: HTMLElement): void {
+    if (element.classList.contains("menu__item")) {
+      const subMenu = this.getMenuContent(element, ".header__dropdown");
+      if (subMenu) {
+        this.removeStyle(subMenu, [
+          "opacity",
+          "visibility",
+          "background-color ",
+          "transform",
+        ]);
       }
     }
   }
