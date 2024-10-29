@@ -1,3 +1,5 @@
+import Specifics from "./shared/Specifics";
+
 interface HoverPathItem {
   element: HTMLElement;
   rect: DOMRect;
@@ -9,7 +11,8 @@ class HoverCapture {
   private navElement: HTMLElement | null = null;
   private headerElement: HTMLElement | null = null;
   private dom: Document;
-  private isRecording: boolean;
+  private isReplaying: boolean = false;
+  private siteSpecifics: Specifics;
 
   constructor() {
     console.log("HoverCapture initialized");
@@ -29,16 +32,18 @@ class HoverCapture {
         container.contentWindow?.document) ||
       document;
 
-    const header = this.findVisibleHeader();
+    this.siteSpecifics = new Specifics(this.dom);
+
+    const navById = this.dom.getElementById("main-nav");
+    const navByClass = this.dom.querySelector(
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub"
+    ) as HTMLElement;
+
+    const header = this.findVisibleHeader() || navById || navByClass;
     if (!header) {
       console.error("Error: No visible header element found.");
       return;
     }
-
-    const navById = this.dom.getElementById("main-nav");
-    const navByClass = this.dom.querySelector(
-      ".viair-header-main-links"
-    ) as HTMLElement;
 
     this.headerElement =
       navById || navByClass || this.findLargestContainer(header);
@@ -114,6 +119,11 @@ class HoverCapture {
   }
 
   private setupHoverCapture(event: MouseEvent): void {
+    // Don't capture new hover states during replay
+    if (this.isReplaying) {
+      return;
+    }
+
     if (this.hoverTimeout !== null) {
       clearTimeout(this.hoverTimeout);
     }
@@ -121,8 +131,6 @@ class HoverCapture {
     this.hoverTimeout = window.setTimeout(() => {
       console.log("started...");
       this.captureHoverState(event.target as HTMLElement);
-      if (event.target instanceof HTMLElement) {
-      }
     }, 1000);
   }
 
@@ -206,11 +214,27 @@ class HoverCapture {
 
   replay(): void {
     if (this.hoverPath.length > 0) {
-      this.hoverPath.forEach((item, index) => {
+      this.isReplaying = true; // Set flag before replay
+
+      const replayPromise = new Promise<void>((resolve) => {
+        let completed = 0;
+        this.hoverPath.forEach((item, index) => {
+          setTimeout(() => {
+            this.simulateHover(item.element, item.rect);
+            console.log("Replaying hover state for:", item.element);
+            completed++;
+            if (completed === this.hoverPath.length) {
+              resolve();
+            }
+          }, index * 100);
+        });
+      });
+
+      // Reset the flag after replay completes
+      replayPromise.then(() => {
         setTimeout(() => {
-          this.simulateHover(item.element, item.rect);
-          console.log("Replaying hover state for:", item.element);
-        }, index * 100);
+          this.isReplaying = false;
+        }, 100); // Small buffer after last replay action
       });
     } else {
       console.log("No hover state captured yet");
@@ -247,7 +271,7 @@ class HoverCapture {
 
     // Simulate click for details elements
     if (
-      element instanceof HTMLDetailsElement &&
+      element.tagName.toLowerCase() === "details" &&
       +this.getThis("idSite") === 1485
     ) {
       console.log("Simulating click on details element");
@@ -264,17 +288,22 @@ class HoverCapture {
         button: 0, // Left mouse button
       });
       element.dispatchEvent(clickEvent);
-      element.open = !element.open;
+      (element as HTMLDetailsElement).open = !(element as HTMLDetailsElement)
+        .open;
     }
 
-    if (element instanceof HTMLDetailsElement) {
-      element.open = !element.open;
+    if (element.tagName.toLowerCase() === "details") {
+      (element as HTMLDetailsElement).open = true;
       element.classList.add("is-open");
     }
 
-    this.handleMenuItemHover(element);
-    this.handleMegaMenu(element);
-    this.handleViairHeader(element);
+    this.siteSpecifics.handleMenuItemHover(element);
+    this.siteSpecifics.handleMegaMenu(element);
+    this.siteSpecifics.handleViairHeader(element);
+    this.siteSpecifics.handleFollowMenu(element);
+    this.siteSpecifics.handleFlowerMenu(element);
+    this.siteSpecifics.handlePureSportMenu(element);
+    this.siteSpecifics.handleAKTMenu(element);
     console.log("Simulated hover for:", element);
   }
 
@@ -284,7 +313,7 @@ class HoverCapture {
         .slice()
         .reverse()
         .forEach((item, index) => {
-          if (item.element instanceof HTMLDetailsElement) {
+          if (item.element.tagName.toLowerCase() === "details") {
             item.element.removeAttribute("open");
             item.element.classList.remove("is-open");
           }
@@ -300,9 +329,13 @@ class HoverCapture {
             });
             console.log("Cleared hover state for:", item.element);
           }, index * 10);
-          this.handleMenuItemClear(item.element);
-          this.handleMegaMenuClear(item.element);
-          this.handleViairHeaderClear(item.element);
+          this.siteSpecifics.handleMenuItemClear(item.element);
+          this.siteSpecifics.handleMegaMenuClear(item.element);
+          this.siteSpecifics.handleViairHeaderClear(item.element);
+          this.siteSpecifics.handleFollowMenuClear(item.element);
+          this.siteSpecifics.handleFlowerMenuClear(item.element);
+          this.siteSpecifics.handlePureSportMenuClear(item.element);
+          this.siteSpecifics.handleAKTMenu(item.element);
         });
       this.hoverPath = [];
     } else {
@@ -317,85 +350,6 @@ class HoverCapture {
         }
       });
     });
-  }
-
-  private handleViairHeader(element: HTMLElement) {
-    if (element.classList.contains("viair-header-link-first-level")) {
-      const ViairMegaMenuContent = element.querySelector(
-        ".viair-header-mega-menu"
-      ) as HTMLElement;
-
-      if (ViairMegaMenuContent) {
-        const newId = "the_id_you_added";
-        ViairMegaMenuContent.id = newId;
-        const style = this.dom.createElement("style");
-        style.type = "text/css";
-        style.innerHTML = `#${newId} { opacity: 1 !important; }`;
-        this.dom.head.appendChild(style);
-        ViairMegaMenuContent.style.setProperty("opacity", "1", "important");
-      }
-    }
-  }
-  private handleMegaMenu(element: HTMLElement): void {
-    if (element.classList.contains("header__menu-li-js")) {
-      const megaMenuContent = element.querySelector(
-        ".mega-menu__content"
-      ) as HTMLElement;
-      if (megaMenuContent) {
-        megaMenuContent.style.setProperty("opacity", "1", "important");
-      }
-    }
-  }
-
-  private handleMenuItemHover(element: HTMLElement): void {
-    if (element.id.startsWith("menu-item-")) {
-      const subMenu = element.querySelector(".sub-menu") as HTMLElement;
-      if (subMenu) {
-        subMenu.style.opacity = "1";
-        subMenu.style.visibility = "visible";
-        subMenu.style.top = "100%";
-      }
-    }
-  }
-
-  private handleMenuItemClear(element: HTMLElement): void {
-    if (element.id.startsWith("menu-item-")) {
-      const subMenu = element.querySelector(".sub-menu") as HTMLElement;
-      if (subMenu) {
-        subMenu.style.opacity = "0";
-        subMenu.style.visibility = "hidden";
-        subMenu.style.top = "120%";
-      }
-    }
-
-    (
-      this.dom.querySelector(
-        ".header-skrim.opacity-0.d-empty-block"
-      ) as HTMLElement
-    )?.style.setProperty("opacity", "0", "important");
-  }
-
-  private handleMegaMenuClear(element: HTMLElement): void {
-    if (element.classList.contains("header__menu-li-js")) {
-      const megaMenuContent = element.querySelector(
-        ".mega-menu__content"
-      ) as HTMLElement;
-      if (megaMenuContent) {
-        megaMenuContent.style.setProperty("opacity", "0");
-      }
-    }
-  }
-
-  private handleViairHeaderClear(element: HTMLElement) {
-    if (element.classList.contains("viair-header-link-first-level")) {
-      const ViairMegaMenuContent = element.querySelector(
-        ".viair-header-mega-menu"
-      ) as HTMLElement;
-      if (ViairMegaMenuContent) {
-        ViairMegaMenuContent.style.setProperty("opacity", "0");
-        ViairMegaMenuContent.removeAttribute("id");
-      }
-    }
   }
 
   public replayChanges() {

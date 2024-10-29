@@ -66,10 +66,18 @@ class MenuMonitor {
     const iframe = document.getElementById(containerId) as HTMLIFrameElement;
     const dom = iframe?.contentWindow?.document || document;
 
+    const navById = dom.getElementById("main-nav");
+    const navByClass = dom.querySelector(
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub"
+    ) as HTMLElement;
+
     const headers = dom.querySelectorAll("header");
-    const header = Array.from(headers).filter((header) =>
-      this.isElementVisible(header)
-    )[0];
+    const header =
+      Array.from(headers).filter((header) =>
+        this.isElementVisible(header)
+      )[0] ||
+      navById ||
+      navByClass;
 
     if (!header) {
       console.error("Error: No header element found.");
@@ -87,11 +95,6 @@ class MenuMonitor {
       currentElement = parentElement;
       parentElement = currentElement.parentElement as HTMLElement;
     }
-
-    const navById = dom.getElementById("main-nav");
-    const navByClass = dom.querySelector(
-      ".viair-header-main-links"
-    ) as HTMLElement;
 
     this.headerElement = navById || navByClass || currentElement;
 
