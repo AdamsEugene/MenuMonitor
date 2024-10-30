@@ -36,7 +36,7 @@ class HoverCapture {
 
     const navById = this.dom.getElementById("main-nav");
     const navByClass = this.dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu"
     ) as HTMLElement;
 
     const header =
@@ -325,8 +325,9 @@ class HoverCapture {
 
     // Simulate click for details elements
     if (
-      element.tagName.toLowerCase() === "details" &&
-      +this.getThis("idSite") === 1485
+      this.getThis("idSite") === "2761" ||
+      (element.tagName.toLowerCase() === "details" &&
+        +this.getThis("idSite") === 1485)
     ) {
       console.log("Simulating click on details element");
       const clickEvent = new MouseEvent("click", {

@@ -45,11 +45,13 @@ export default class Specifics {
   public handleFlowerMenu(element: HTMLElement): void {
     if (
       element.classList.contains("site-nav--is-megamenu") ||
-      element.classList.contains("site-nav__item")
+      element.classList.contains("site-nav__item") ||
+      element.classList.contains("header__link-nav") ||
+      element.classList.contains("menu-item")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu"
       );
       if (flowerMenuContent) {
         this.setStyle(flowerMenuContent, {
@@ -142,7 +144,7 @@ export default class Specifics {
         this.setStyle(subMenu, {
           opacity: "1",
           visibility: "visible",
-          "background-color ": "rgb(255, 255, 255)",
+          background: "rgb(255, 255, 255)",
           transform: "scale(1)",
         });
       }
@@ -165,11 +167,13 @@ export default class Specifics {
   public handleFlowerMenuClear(element: HTMLElement): void {
     if (
       element.classList.contains("site-nav--is-megamenu") ||
-      element.classList.contains("site-nav__item")
+      element.classList.contains("site-nav__item") ||
+      element.classList.contains("header__link-nav") ||
+      element.classList.contains("menu-item")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu"
       );
       if (flowerMenuContent) {
         this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
@@ -247,7 +251,7 @@ export default class Specifics {
         this.removeStyle(subMenu, [
           "opacity",
           "visibility",
-          "background-color ",
+          "background",
           "transform",
         ]);
       }
