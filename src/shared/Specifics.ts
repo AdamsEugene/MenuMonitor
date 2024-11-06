@@ -47,11 +47,12 @@ export default class Specifics {
       element.classList.contains("site-nav--is-megamenu") ||
       element.classList.contains("site-nav__item") ||
       element.classList.contains("header__link-nav") ||
-      element.classList.contains("menu-item")
+      element.classList.contains("menu-item") ||
+      element.classList.contains("list-menu-has-child")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu"
       );
       if (flowerMenuContent) {
         this.setStyle(flowerMenuContent, {
@@ -120,6 +121,15 @@ export default class Specifics {
     }
   }
 
+  public handleDeuxMenuItemHover(element: HTMLElement): void {
+    if (element.id.startsWith("Details-HeaderMenu-")) {
+      const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
+      if (subMenu) {
+        this.setStyle(subMenu, { display: "block" });
+      }
+    }
+  }
+
   public handleAKTMenu(element: HTMLElement): void {
     if (element.classList.contains("big:relative")) {
       const megaMenuContent = this.getMenuContent(element, "div");
@@ -169,11 +179,12 @@ export default class Specifics {
       element.classList.contains("site-nav--is-megamenu") ||
       element.classList.contains("site-nav__item") ||
       element.classList.contains("header__link-nav") ||
-      element.classList.contains("menu-item")
+      element.classList.contains("menu-item") ||
+      element.classList.contains("list-menu-has-child")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu"
       );
       if (flowerMenuContent) {
         this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
@@ -254,6 +265,15 @@ export default class Specifics {
           "background",
           "transform",
         ]);
+      }
+    }
+  }
+
+  public handleDeuxMenuItemHoverClear(element: HTMLElement): void {
+    if (element.id.startsWith("Details-HeaderMenu-")) {
+      const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
+      if (subMenu) {
+        this.setStyle(subMenu, { display: "none" });
       }
     }
   }

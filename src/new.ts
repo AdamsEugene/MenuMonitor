@@ -1,3 +1,6 @@
+import { getRedirectType } from "./shared/functions";
+import SiteSpecifics from "./shared/SiteSpecifics";
+
 class MenuMonitor {
   private hoverTimer: ReturnType<typeof setTimeout> | null = null;
   private hoverElement: HTMLElement | null = null;
@@ -19,9 +22,12 @@ class MenuMonitor {
   private navElement: HTMLElement | null = null;
   private headerElement: HTMLElement | null = null;
   private debugMode: boolean;
+  private siteSpecifics: SiteSpecifics;
+  private isDevMode = false;
 
   constructor(debugMode = false) {
-    console.log("MenuMonitor");
+    this.isDevMode = getRedirectType() !== "dashboard";
+    if (this.isDevMode) console.log("MenuMonitor");
     this.debugMode = debugMode;
   }
 
@@ -44,7 +50,8 @@ class MenuMonitor {
     return (
       computedStyles.display !== "none" &&
       computedStyles.visibility !== "hidden" &&
-      rect.width > 10 // Check if the width of the element's client rect is greater than 10px
+      rect.width > 10 &&
+      rect.height > 30
     );
   }
 
@@ -66,6 +73,8 @@ class MenuMonitor {
     const iframe = document.getElementById(containerId) as HTMLIFrameElement;
     const dom = iframe?.contentWindow?.document || document;
 
+    this.siteSpecifics = new SiteSpecifics(dom);
+
     const navById = dom.getElementById("main-nav");
     const navByClass = dom.querySelector(
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu"
@@ -81,7 +90,7 @@ class MenuMonitor {
       this.getFirstVisibleNav(dom);
 
     if (!header) {
-      console.error("Error: No header element found.");
+      if (this.isDevMode) console.error("Error: No header element found.");
       this.headerElement = null;
       return;
     }
@@ -110,7 +119,7 @@ class MenuMonitor {
         this.getFirstVisibleNav(dom) ||
         this.getVisibleNavElements(this.headerElement)[0];
       const detailsElements = this.headerElement?.querySelectorAll("details");
-      console.log("nav: ", this.navElement);
+      if (this.isDevMode) console.log("nav: ", this.navElement);
 
       if (this.navElement) {
         this.createHiddenElementsMap(this.navElement);
@@ -421,7 +430,8 @@ class MenuMonitor {
         this.recordBlurredChanges();
 
         this.menuName = this.hoverElement.innerText || "selected";
-        console.log("Capturing mutations now for " + this.menuName + " menu");
+        if (this.isDevMode)
+          console.log("Capturing mutations now for " + this.menuName + " menu");
         this.dispatchMenuOpenEvent();
         this.previousMutations = [...this.mutations];
         this.previousClonedElements = new Map(this.clonedElements); // Update previousClonedElements only when the hover timer completes
@@ -455,7 +465,7 @@ class MenuMonitor {
         mutations: this.mutations,
       },
     });
-    console.log("dispatchMenuCloseRequiredEvent");
+    if (this.isDevMode) console.log("dispatchMenuCloseRequiredEvent");
     document.dispatchEvent(menuCloseEvent);
     this.isRecording = false;
   }
@@ -466,7 +476,7 @@ class MenuMonitor {
         mutations: this.mutations,
       },
     });
-    console.log("dispatchMenuCloseRequiredEvent");
+    if (this.isDevMode) console.log("dispatchMenuCloseRequiredEvent");
     document.dispatchEvent(hideCloseEvent);
     this.isRecording = false;
   }
@@ -486,6 +496,14 @@ class MenuMonitor {
     // });
     this.detailChangedElements.forEach((_, element) => {
       element.removeAttribute("open");
+      element.classList.remove("is-open");
+      const megaElement = element.querySelector(
+        ".mega-menu-content"
+      ) as HTMLElement;
+
+      if (megaElement && megaElement.id.startsWith("MegaMenu-Content-")) {
+        this.siteSpecifics.updateMegaMenuScale(megaElement, 0);
+      }
     });
     this.visibilityChangedElements.forEach((_, element) => {
       element.style.removeProperty("visibility");
@@ -493,6 +511,7 @@ class MenuMonitor {
     this.opacityChangedElements.forEach((_, element) => {
       this.removeCssForNikura(element);
       element.style.removeProperty("opacity");
+      this.siteSpecifics.getScaleValues(element, true);
     });
     this.displayChangedElements.clear();
     this.detailChangedElements.clear();
@@ -557,7 +576,7 @@ class MenuMonitor {
         parent.style.display = displayValue;
       }
       element.style.display = displayValue;
-      console.log({ displayValue });
+      if (this.isDevMode) console.log({ displayValue });
 
       manualCloseRequired = true;
     });
@@ -568,9 +587,29 @@ class MenuMonitor {
 
   private reapplyDetailsChanges() {
     let hasChanges = false;
+    let count = 0;
     this.detailChangedElements.forEach((open, element) => {
+      function handleToggle() {
+        count += 1;
+        if (!element.open) {
+          element.setAttribute("open", "");
+          element.classList.add("is-open");
+          count > 5 && element.removeEventListener("toggle", handleToggle);
+        }
+      }
+      const megaElement = element.querySelector(
+        ".mega-menu-content"
+      ) as HTMLElement;
+
+      if (megaElement && megaElement.id.startsWith("MegaMenu-Content-")) {
+        this.siteSpecifics.updateMegaMenuScale(megaElement, 1);
+      }
+
       element.setAttribute("open", `${open}`);
       element.setAttribute("aria-expanded", `${open}`);
+      element.classList.add("is-open");
+      (element as HTMLDetailsElement).open = true;
+      element.addEventListener("toggle", handleToggle);
       hasChanges = true;
     });
     if (hasChanges) {
@@ -595,8 +634,7 @@ class MenuMonitor {
     let hasChanges = false;
     this.opacityChangedElements.forEach((opacity, element: HTMLElement) => {
       element.style.opacity = `${opacity}`;
-      element.style.setProperty("transform", "scale(1)", "important");
-
+      this.siteSpecifics.getScaleValues(element);
       // console.log(element);
       this.applyCssForNikura(element);
       hasChanges = true;

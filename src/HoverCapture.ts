@@ -1,3 +1,4 @@
+import { getRedirectType, getThis } from "./shared/functions";
 import Specifics from "./shared/Specifics";
 
 interface HoverPathItem {
@@ -13,9 +14,11 @@ class HoverCapture {
   private dom: Document;
   private isReplaying: boolean = false;
   private siteSpecifics: Specifics;
+  private isDevMode = false;
 
   constructor() {
-    console.log("HoverCapture initialized");
+    this.isDevMode = getRedirectType() !== "dashboard";
+    if (this.isDevMode) console.log("HoverCapture initialized");
   }
 
   private excludeElementsMap: Map<string, string> = new Map([
@@ -45,7 +48,8 @@ class HoverCapture {
       navByClass ||
       this.getFirstVisibleNav();
     if (!header) {
-      console.error("Error: No visible header element found.");
+      if (this.isDevMode)
+        console.error("Error: No visible header element found.");
       return;
     }
 
@@ -61,7 +65,7 @@ class HoverCapture {
         navByClass ||
         this.getVisibleNavElements(this.headerElement)[0] ||
         this.headerElement;
-      console.log("header: ", this.navElement);
+      if (this.isDevMode) console.log("header: ", this.navElement);
 
       this.navElement.addEventListener(
         "mouseover",
@@ -162,7 +166,8 @@ class HoverCapture {
     return (
       computedStyles.display !== "none" &&
       computedStyles.visibility !== "hidden" &&
-      rect.width > 10
+      rect.width > 10 &&
+      rect.height > 30
     );
   }
 
@@ -224,7 +229,8 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    console.log("Hover state captured for:", this.hoverPath);
+    if (this.isDevMode)
+      console.log("Hover state captured for:", this.hoverPath);
   }
 
   private shouldExcludeElement(element: HTMLElement): boolean {
@@ -275,7 +281,8 @@ class HoverCapture {
         this.hoverPath.forEach((item, index) => {
           setTimeout(() => {
             this.simulateHover(item.element, item.rect);
-            console.log("Replaying hover state for:", item.element);
+            if (this.isDevMode)
+              console.log("Replaying hover state for:", item.element);
             completed++;
             if (completed === this.hoverPath.length) {
               resolve();
@@ -291,13 +298,13 @@ class HoverCapture {
         }, 100); // Small buffer after last replay action
       });
     } else {
-      console.log("No hover state captured yet");
+      if (this.isDevMode) console.log("No hover state captured yet");
     }
   }
 
   private simulateHover(element: HTMLElement, rect: DOMRect): void {
     if (!element) {
-      console.error("Element not found");
+      if (this.isDevMode) console.error("Element not found");
       return;
     }
 
@@ -325,9 +332,9 @@ class HoverCapture {
 
     // Simulate click for details elements
     if (
-      this.getThis("idSite") === "2761" ||
+      getThis("idSite") === "2761" ||
       (element.tagName.toLowerCase() === "details" &&
-        +this.getThis("idSite") === 1485)
+        +getThis("idSite") === 1485)
     ) {
       console.log("Simulating click on details element");
       const clickEvent = new MouseEvent("click", {
@@ -347,9 +354,20 @@ class HoverCapture {
         .open;
     }
 
+    let count = 0;
+    function handleToggle() {
+      count += 1;
+      if (!(element as HTMLDetailsElement).open) {
+        element.setAttribute("open", ""); // Prevent closing
+        element.classList.add("is-open");
+        count > 5 && element.removeEventListener("toggle", handleToggle);
+      }
+    }
     if (element.tagName.toLowerCase() === "details") {
       (element as HTMLDetailsElement).open = true;
+      element.setAttribute("open", "true");
       element.classList.add("is-open");
+      element.addEventListener("toggle", handleToggle);
     }
 
     this.siteSpecifics.handleMenuItemHover(element);
@@ -360,7 +378,8 @@ class HoverCapture {
     this.siteSpecifics.handlePureSportMenu(element);
     this.siteSpecifics.handleAKTMenu(element);
     this.siteSpecifics.handleNubianceHoverClear(element);
-    console.log("Simulated hover for:", element);
+    this.siteSpecifics.handleDeuxMenuItemHoverClear(element);
+    if (this.isDevMode) console.log("Simulated hover for:", element);
   }
 
   private clear(): void {
@@ -383,7 +402,8 @@ class HoverCapture {
               });
               item.element.dispatchEvent(event);
             });
-            console.log("Cleared hover state for:", item.element);
+            if (this.isDevMode)
+              console.log("Cleared hover state for:", item.element);
           }, index * 10);
           this.siteSpecifics.handleMenuItemClear(item.element);
           this.siteSpecifics.handleMegaMenuClear(item.element);
@@ -393,10 +413,11 @@ class HoverCapture {
           this.siteSpecifics.handlePureSportMenuClear(item.element);
           this.siteSpecifics.handleAKTMenuClear(item.element);
           this.siteSpecifics.handleNubianceHoverClear(item.element);
+          this.siteSpecifics.handleDeuxMenuItemHoverClear(item.element);
         });
       this.hoverPath = [];
     } else {
-      console.log("No hover state to clear");
+      if (this.isDevMode) console.log("No hover state to clear");
     }
 
     this.classesToHide.forEach((cls) => {
@@ -418,12 +439,12 @@ class HoverCapture {
   }
 
   private handleReopenMenu(event: Event): void {
-    console.log("Reopening menu");
+    if (this.isDevMode) console.log("Reopening menu");
     this.replayChanges();
   }
 
   private handleCloseMenu(event: Event): void {
-    console.log("Closing menu");
+    if (this.isDevMode) console.log("Closing menu");
     this.clearChanges();
   }
 
@@ -433,14 +454,6 @@ class HoverCapture {
 
   public closeActiveMenu(): void {
     document.dispatchEvent(new CustomEvent("close-menu"));
-  }
-
-  private getThis(item: string) {
-    const parsedUrl = new URL(window.location.href);
-    const searchParams = new URLSearchParams(parsedUrl.search);
-    const hashParams = new URLSearchParams(parsedUrl.hash.slice(1));
-
-    return searchParams.get(item) || hashParams.get(item) || 0;
   }
 }
 
