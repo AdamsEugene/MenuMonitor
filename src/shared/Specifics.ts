@@ -273,7 +273,7 @@ export default class Specifics {
     if (element.id.startsWith("Details-HeaderMenu-")) {
       const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
       if (subMenu) {
-        this.setStyle(subMenu, { display: "none" });
+        this.removeStyle(subMenu, ["display"]);
       }
     }
   }

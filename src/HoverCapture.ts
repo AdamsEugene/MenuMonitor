@@ -378,7 +378,7 @@ class HoverCapture {
     this.siteSpecifics.handlePureSportMenu(element);
     this.siteSpecifics.handleAKTMenu(element);
     this.siteSpecifics.handleNubianceHoverClear(element);
-    this.siteSpecifics.handleDeuxMenuItemHoverClear(element);
+    this.siteSpecifics.handleDeuxMenuItemHover(element);
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
 
