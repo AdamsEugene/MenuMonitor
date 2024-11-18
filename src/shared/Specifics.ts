@@ -29,6 +29,10 @@ export default class Specifics {
     return element.querySelector(selector) as HTMLElement;
   }
 
+  private hasRel(element: HTMLElement): string | undefined {
+    return element.getAttribute("rel");
+  }
+
   public handleFollowMenu(element: HTMLElement): void {
     if (element.classList.contains("contains-children")) {
       const followMenuContent = this.getMenuContent(element, ".nav-rows");
@@ -147,6 +151,18 @@ export default class Specifics {
     }
   }
 
+  public handleFourthMenuItemHover(element: HTMLElement): void {
+    if (element.classList.contains("item-ai-dropdown")) {
+      const subMenu = this.getMenuContent(element, "ul");
+      if (subMenu) {
+        this.setStyle(subMenu, {
+          opacity: "1",
+          visibility: "visible",
+        });
+      }
+    }
+  }
+
   public handleNubianceHover(element: HTMLElement): void {
     if (element.classList.contains("menu__item")) {
       const subMenu = this.getMenuContent(element, ".header__dropdown");
@@ -157,6 +173,26 @@ export default class Specifics {
           background: "rgb(255, 255, 255)",
           transform: "scale(1)",
         });
+      }
+    }
+  }
+
+  public handlePlusbogMenuHover(element: HTMLElement) {
+    if (element.classList.contains("menu-item-cont")) {
+      const mainRel = this.hasRel(element);
+      const subMenu = this.getMenuContent(element, ".mega-menu-cont");
+      const subRel = this.hasRel(element);
+      if (subMenu && mainRel === subRel) {
+        this.setStyle(subMenu, { display: "block" });
+      }
+    }
+  }
+
+  public handleSaltMenuItemHover(element: HTMLElement): void {
+    if (element.classList.contains("nav-item")) {
+      const subMenu = this.getMenuContent(element, ".sub-nav");
+      if (subMenu) {
+        this.setStyle(subMenu, { display: "block" });
       }
     }
   }
@@ -276,5 +312,48 @@ export default class Specifics {
         this.removeStyle(subMenu, ["display"]);
       }
     }
+  }
+
+  public handleFourthMenuItemClear(element: HTMLElement): void {
+    if (element.classList.contains("item-ai-dropdown")) {
+      const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
+      if (subMenu) {
+        this.removeStyle(subMenu, ["opacity", "visibility"]);
+      }
+    }
+  }
+
+  public handlePlusbogMenuClear(element: HTMLElement) {
+    if (element.classList.contains("menu-item-cont")) {
+      const mainRel = this.hasRel(element);
+      const subMenu = this.getMenuContent(element, ".mega-menu-cont");
+      const subRel = this.hasRel(element);
+      if (subMenu && mainRel === subRel) {
+        this.removeStyle(subMenu, ["display"]);
+      }
+    }
+  }
+
+  public handleSaltMenuItemClear(element: HTMLElement): void {
+    if (element.classList.contains("nav-item")) {
+      const subMenu = this.getMenuContent(element, ".sub-nav");
+      if (subMenu) {
+        this.removeStyle(subMenu, ["display"]);
+      }
+    }
+  }
+
+  public hideAliaPopups(dom: Document): void {
+    const divs = dom.querySelectorAll("div");
+    divs.forEach((div) => {
+      const firstChild = div.firstElementChild;
+      if (
+        firstChild &&
+        firstChild.tagName.toLowerCase() === "iframe" &&
+        firstChild.getAttribute("title") === "Alia popup"
+      ) {
+        this.setStyle(div, { display: "block" });
+      }
+    });
   }
 }

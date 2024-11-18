@@ -77,7 +77,7 @@ class MenuMonitor {
 
     const navById = dom.getElementById("main-nav");
     const navByClass = dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu"
     ) as HTMLElement;
 
     const headers = dom.querySelectorAll("header");

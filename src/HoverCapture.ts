@@ -18,6 +18,8 @@ class HoverCapture {
 
   constructor() {
     this.isDevMode = getRedirectType() !== "dashboard";
+    console.log(this.isDevMode, getRedirectType());
+
     if (this.isDevMode) console.log("HoverCapture initialized");
   }
 
@@ -39,7 +41,7 @@ class HoverCapture {
 
     const navById = this.dom.getElementById("main-nav");
     const navByClass = this.dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu"
     ) as HTMLElement;
 
     const header =
@@ -379,6 +381,9 @@ class HoverCapture {
     this.siteSpecifics.handleAKTMenu(element);
     this.siteSpecifics.handleNubianceHoverClear(element);
     this.siteSpecifics.handleDeuxMenuItemHover(element);
+    this.siteSpecifics.handleFourthMenuItemHover(element);
+    this.siteSpecifics.handlePlusbogMenuHover(element);
+    this.siteSpecifics.handleSaltMenuItemHover(element);
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
 
@@ -414,6 +419,9 @@ class HoverCapture {
           this.siteSpecifics.handleAKTMenuClear(item.element);
           this.siteSpecifics.handleNubianceHoverClear(item.element);
           this.siteSpecifics.handleDeuxMenuItemHoverClear(item.element);
+          this.siteSpecifics.handleFourthMenuItemClear(item.element);
+          this.siteSpecifics.handlePlusbogMenuClear(item.element);
+          this.siteSpecifics.handleSaltMenuItemClear(item.element);
         });
       this.hoverPath = [];
     } else {
@@ -428,6 +436,7 @@ class HoverCapture {
         }
       });
     });
+    this.siteSpecifics.hideAliaPopups(this.dom);
   }
 
   public replayChanges() {
