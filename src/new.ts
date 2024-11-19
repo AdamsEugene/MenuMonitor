@@ -75,9 +75,11 @@ class MenuMonitor {
 
     this.siteSpecifics = new SiteSpecifics(dom);
 
-    const navById = dom.getElementById("main-nav");
+    const navById = dom.querySelector(
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary"
+    ) as HTMLElement;
     const navByClass = dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
     ) as HTMLElement;
 
     const headers = dom.querySelectorAll("header");
@@ -145,7 +147,7 @@ class MenuMonitor {
         computedStyle.display !== "none" &&
         computedStyle.visibility === "visible";
       const hasChildren = nav.children.length > 0;
-      const hasReasonableDimensions = rect.width > 100 && rect.height > 50;
+      const hasReasonableDimensions = rect.width > 100 && rect.height > 37;
 
       const hasNavWrapper = nav.querySelector(".nav-wrapper") !== null;
       const hasSkipToContent =

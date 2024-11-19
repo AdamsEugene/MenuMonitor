@@ -5,6 +5,8 @@ export default class Specifics {
     this.dom = dom;
   }
 
+  private stylesToRemove = ["opacity", "visibility"];
+
   private setStyle(
     element: HTMLElement,
     styles: { [key: string]: string },
@@ -67,6 +69,21 @@ export default class Specifics {
       subMenu = this.getMenuContent(element, ".sub-menu");
     }
     return subMenu;
+  }
+
+  private getElementByClass(
+    element: HTMLElement,
+    selectors: string[],
+    subSelectors: string
+  ): HTMLElement | null {
+    let returnElement: HTMLElement | null = null;
+    const hasSelector = selectors.some((selector) =>
+      element.classList.contains(selector)
+    );
+    if (hasSelector) {
+      returnElement = this.getMenuContent(element, subSelectors);
+    }
+    return returnElement;
   }
 
   public handleFollowMenu(element: HTMLElement): void {
@@ -161,6 +178,7 @@ export default class Specifics {
         opacity: "1",
         visibility: "visible",
         top: "100%",
+        display: "block",
         "pointer-events": "auto",
       });
     }
@@ -264,13 +282,27 @@ export default class Specifics {
     }
   }
 
-  public handleTargetMenuItemHover(element: HTMLElement): void {
-    const subMenu = this.getTarget(element);
+  public handleOberfieldsMenuItemHover(element: HTMLElement): void {
+    const subMenu = this.getElementByClass(element, ["drops"], ".dropdown");
+    if (subMenu) {
+      this.setStyle(subMenu, {
+        opacity: "1",
+        "max-height": "max-content",
+        "pointer-events": "auto",
+      });
+    }
+  }
+
+  public handleCustomMenuItemHover(element: HTMLElement): void {
+    const subMenu = this.getElementByClass(
+      element,
+      ["mega-menu-item", "has-dropdown"],
+      ".mega-sub-menu, .mega-menu"
+    );
     if (subMenu) {
       this.setStyle(subMenu, {
         opacity: "1",
         visibility: "visible",
-        display: "block",
         "pointer-events": "auto",
       });
     }
@@ -292,14 +324,14 @@ export default class Specifics {
   public handleFlowerMenuClear(element: HTMLElement): void {
     const flowerMenuContent = this.getFlowerMenu(element);
     if (flowerMenuContent) {
-      this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
+      this.removeStyle(flowerMenuContent, this.stylesToRemove);
     }
   }
 
   public handleMenuItemClear(element: HTMLElement): void {
     const subMenu = this.getTarget(element);
     if (subMenu) {
-      this.removeStyle(subMenu, ["opacity", "visibility", "top"]);
+      this.removeStyle(subMenu, [...this.stylesToRemove, "top", "display"]);
     }
 
     const skrimElement = this.dom.querySelector(
@@ -384,7 +416,7 @@ export default class Specifics {
     if (element.classList.contains("item-ai-dropdown")) {
       const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
       if (subMenu) {
-        this.removeStyle(subMenu, ["opacity", "visibility"]);
+        this.removeStyle(subMenu, this.stylesToRemove);
       }
     }
   }
@@ -426,10 +458,21 @@ export default class Specifics {
     }
   }
 
-  public handleTargetMenuItemClear(element: HTMLElement): void {
-    const subMenu = this.getTarget(element);
+  public handleOberfieldsMenuItemClear(element: HTMLElement): void {
+    const subMenu = this.getElementByClass(element, ["drops"], ".dropdown");
     if (subMenu) {
-      this.removeStyle(subMenu, ["opacity", "visibility", "display"]);
+      this.removeStyle(subMenu, ["opacity", "max-height"]);
+    }
+  }
+
+  public handleCustomMenuItemClear(element: HTMLElement): void {
+    const subMenu = this.getElementByClass(
+      element,
+      ["mega-menu-item", "has-dropdown"],
+      ".mega-sub-menu, .mega-menu"
+    );
+    if (subMenu) {
+      this.removeStyle(subMenu, this.stylesToRemove);
     }
   }
 

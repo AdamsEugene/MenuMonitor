@@ -40,10 +40,10 @@ class HoverCapture {
     this.siteSpecifics.hideAliaPopups(this.dom);
 
     const navById = this.dom.querySelector(
-      "#main-nav, #main-menu, #header-main"
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary"
     ) as HTMLElement;
     const navByClass = this.dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
     ) as HTMLElement;
 
     const header =
@@ -117,7 +117,7 @@ class HoverCapture {
         computedStyle.display !== "none" &&
         computedStyle.visibility === "visible";
       const hasChildren = nav.children.length > 0;
-      const hasReasonableDimensions = rect.width > 100 && rect.height > 50;
+      const hasReasonableDimensions = rect.width > 100 && rect.height > 37;
 
       const hasNavWrapper = nav.querySelector(".nav-wrapper") !== null;
       const hasSkipToContent =
@@ -388,7 +388,8 @@ class HoverCapture {
     this.siteSpecifics.handleSaltMenuItemHover(element);
     this.siteSpecifics.handleCanvasMenuItemHover(element);
     this.siteSpecifics.handleEssenceMenuItemHover(element);
-    this.siteSpecifics.handleTargetMenuItemHover(element);
+    this.siteSpecifics.handleOberfieldsMenuItemHover(element);
+    this.siteSpecifics.handleCustomMenuItemHover(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -430,7 +431,8 @@ class HoverCapture {
           this.siteSpecifics.handleSaltMenuItemClear(item.element);
           this.siteSpecifics.handleCanvasMenuItemClear(item.element);
           this.siteSpecifics.handleEssenceMenuItemClear(item.element);
-          this.siteSpecifics.handleTargetMenuItemClear(item.element);
+          this.siteSpecifics.handleOberfieldsMenuItemClear(item.element);
+          this.siteSpecifics.handleCustomMenuItemClear(item.element);
         });
       this.hoverPath = [];
     } else {
