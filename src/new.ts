@@ -76,7 +76,7 @@ class MenuMonitor {
     this.siteSpecifics = new SiteSpecifics(dom);
 
     const navById = dom.querySelector(
-      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header"
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header"
     ) as HTMLElement;
     const navByClass = dom.querySelector(
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
