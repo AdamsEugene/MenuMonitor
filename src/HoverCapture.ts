@@ -19,7 +19,7 @@ class HoverCapture {
   constructor() {
     this.isDevMode = getRedirectType() !== "dashboard";
 
-    console.log("HoverCapture initialized");
+    if (this.isDevMode) console.log("HoverCapture initialized");
   }
 
   private excludeElementsMap: Map<string, string> = new Map([
@@ -52,7 +52,8 @@ class HoverCapture {
       navByClass ||
       this.getFirstVisibleNav();
     if (!header) {
-      console.error("Error: No visible header element found.");
+      if (this.isDevMode)
+        console.error("Error: No visible header element found.");
       return;
     }
 
@@ -68,7 +69,7 @@ class HoverCapture {
         navByClass ||
         this.getVisibleNavElements(this.headerElement)[0] ||
         this.headerElement;
-      console.log("header: ", this.navElement);
+      if (this.isDevMode) console.log("header: ", this.navElement);
 
       this.navElement.addEventListener(
         "mouseover",
@@ -232,7 +233,8 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    console.log("Hover state captured for:", this.hoverPath);
+    if (this.isDevMode)
+      console.log("Hover state captured for:", this.hoverPath);
   }
 
   private shouldExcludeElement(element: HTMLElement): boolean {
@@ -283,8 +285,8 @@ class HoverCapture {
         this.hoverPath.forEach((item, index) => {
           setTimeout(() => {
             this.simulateHover(item.element, item.rect);
-
-            console.log("Replaying hover state for:", item.element);
+            if (this.isDevMode)
+              console.log("Replaying hover state for:", item.element);
             completed++;
             if (completed === this.hoverPath.length) {
               resolve();
@@ -300,13 +302,13 @@ class HoverCapture {
         }, 100); // Small buffer after last replay action
       });
     } else {
-      console.log("No hover state captured yet");
+      if (this.isDevMode) console.log("No hover state captured yet");
     }
   }
 
   private simulateHover(element: HTMLElement, rect: DOMRect): void {
     if (!element) {
-      console.error("Element not found");
+      if (this.isDevMode) console.error("Element not found");
       return;
     }
 
@@ -386,7 +388,9 @@ class HoverCapture {
     this.siteSpecifics.handleSaltMenuItemHover(element);
     this.siteSpecifics.handleCanvasMenuItemHover(element);
     this.siteSpecifics.handleEssenceMenuItemHover(element);
-    console.log("Simulated hover for:", element);
+    this.siteSpecifics.handleTargetMenuItemHover(element);
+
+    if (this.isDevMode) console.log("Simulated hover for:", element);
   }
 
   private clear(): void {
@@ -409,8 +413,8 @@ class HoverCapture {
               });
               item.element.dispatchEvent(event);
             });
-
-            console.log("Cleared hover state for:", item.element);
+            if (this.isDevMode)
+              console.log("Cleared hover state for:", item.element);
           }, index * 10);
           this.siteSpecifics.handleMenuItemClear(item.element);
           this.siteSpecifics.handleMegaMenuClear(item.element);
@@ -426,10 +430,11 @@ class HoverCapture {
           this.siteSpecifics.handleSaltMenuItemClear(item.element);
           this.siteSpecifics.handleCanvasMenuItemClear(item.element);
           this.siteSpecifics.handleEssenceMenuItemClear(item.element);
+          this.siteSpecifics.handleTargetMenuItemClear(item.element);
         });
       this.hoverPath = [];
     } else {
-      console.log("No hover state to clear");
+      if (this.isDevMode) console.log("No hover state to clear");
     }
 
     this.classesToHide.forEach((cls) => {
@@ -451,12 +456,12 @@ class HoverCapture {
   }
 
   private handleReopenMenu(event: Event): void {
-    console.log("Reopening menu");
+    if (this.isDevMode) console.log("Reopening menu");
     this.replayChanges();
   }
 
   private handleCloseMenu(event: Event): void {
-    console.log("Closing menu");
+    if (this.isDevMode) console.log("Closing menu");
     this.clearChanges();
   }
 

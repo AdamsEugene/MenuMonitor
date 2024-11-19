@@ -53,17 +53,31 @@ export default class Specifics {
     return flowerMenuContent;
   }
 
-  public handleFollowMenu(element: HTMLElement): void {
+  private getFollow(element: HTMLElement) {
+    let followMenuContent: HTMLElement;
     if (element.classList.contains("contains-children")) {
-      const followMenuContent = this.getMenuContent(element, ".nav-rows");
-      if (followMenuContent) {
-        this.setStyle(followMenuContent, {
-          opacity: "1",
-          visibility: "visible",
-          "max-height": "max-content",
-          "pointer-events": "auto",
-        });
-      }
+      followMenuContent = this.getMenuContent(element, ".nav-rows");
+    }
+    return followMenuContent;
+  }
+
+  private getTarget(element: HTMLElement) {
+    let subMenu: HTMLElement;
+    if (element.id.startsWith("menu-item-")) {
+      subMenu = this.getMenuContent(element, ".sub-menu");
+    }
+    return subMenu;
+  }
+
+  public handleFollowMenu(element: HTMLElement): void {
+    const followMenuContent = this.getFollow(element);
+    if (followMenuContent) {
+      this.setStyle(followMenuContent, {
+        opacity: "1",
+        visibility: "visible",
+        "max-height": "max-content",
+        "pointer-events": "auto",
+      });
     }
   }
 
@@ -141,16 +155,14 @@ export default class Specifics {
   }
 
   public handleMenuItemHover(element: HTMLElement): void {
-    if (element.id.startsWith("menu-item-")) {
-      const subMenu = this.getMenuContent(element, ".sub-menu");
-      if (subMenu) {
-        this.setStyle(subMenu, {
-          opacity: "1",
-          visibility: "visible",
-          top: "100%",
-          "pointer-events": "auto",
-        });
-      }
+    const subMenu = this.getTarget(element);
+    if (subMenu) {
+      this.setStyle(subMenu, {
+        opacity: "1",
+        visibility: "visible",
+        top: "100%",
+        "pointer-events": "auto",
+      });
     }
   }
 
@@ -252,16 +264,28 @@ export default class Specifics {
     }
   }
 
+  public handleTargetMenuItemHover(element: HTMLElement): void {
+    const subMenu = this.getTarget(element);
+    if (subMenu) {
+      this.setStyle(subMenu, {
+        opacity: "1",
+        visibility: "visible",
+        display: "block",
+        "pointer-events": "auto",
+      });
+    }
+  }
+
+  // // // // // // // // // // / / / / / / / // / / / /
+
   public handleFollowMenuClear(element: HTMLElement): void {
-    if (element.classList.contains("contains-children")) {
-      const followMenuContent = this.getMenuContent(element, ".nav-rows");
-      if (followMenuContent) {
-        this.removeStyle(followMenuContent, [
-          "opacity",
-          "visibility",
-          "max-height",
-        ]);
-      }
+    const followMenuContent = this.getFollow(element);
+    if (followMenuContent) {
+      this.removeStyle(followMenuContent, [
+        "opacity",
+        "visibility",
+        "max-height",
+      ]);
     }
   }
 
@@ -273,11 +297,9 @@ export default class Specifics {
   }
 
   public handleMenuItemClear(element: HTMLElement): void {
-    if (element.id.startsWith("menu-item-")) {
-      const subMenu = this.getMenuContent(element, ".sub-menu");
-      if (subMenu) {
-        this.removeStyle(subMenu, ["opacity", "visibility", "top"]);
-      }
+    const subMenu = this.getTarget(element);
+    if (subMenu) {
+      this.removeStyle(subMenu, ["opacity", "visibility", "top"]);
     }
 
     const skrimElement = this.dom.querySelector(
@@ -401,6 +423,13 @@ export default class Specifics {
       if (subMenu) {
         this.removeStyle(subMenu, ["opacity", "height"]);
       }
+    }
+  }
+
+  public handleTargetMenuItemClear(element: HTMLElement): void {
+    const subMenu = this.getTarget(element);
+    if (subMenu) {
+      this.removeStyle(subMenu, ["opacity", "visibility", "display"]);
     }
   }
 
