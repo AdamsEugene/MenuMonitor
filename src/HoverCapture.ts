@@ -39,9 +39,11 @@ class HoverCapture {
 
     this.siteSpecifics = new Specifics(this.dom);
 
-    const navById = this.dom.getElementById("main-nav");
+    const navById = this.dom.querySelector(
+      "#main-nav, #main-menu, #header-main"
+    ) as HTMLElement;
     const navByClass = this.dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute"
     ) as HTMLElement;
 
     const header =
@@ -384,6 +386,7 @@ class HoverCapture {
     this.siteSpecifics.handleFourthMenuItemHover(element);
     this.siteSpecifics.handlePlusbogMenuHover(element);
     this.siteSpecifics.handleSaltMenuItemHover(element);
+    this.siteSpecifics.handleCanvasMenuItemHover(element);
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
 
@@ -422,6 +425,7 @@ class HoverCapture {
           this.siteSpecifics.handleFourthMenuItemClear(item.element);
           this.siteSpecifics.handlePlusbogMenuClear(item.element);
           this.siteSpecifics.handleSaltMenuItemClear(item.element);
+          this.siteSpecifics.handleCanvasMenuItemClear(item.element);
         });
       this.hoverPath = [];
     } else {

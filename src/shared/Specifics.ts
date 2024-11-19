@@ -41,6 +41,7 @@ export default class Specifics {
           opacity: "1",
           visibility: "visible",
           "max-height": "max-content",
+          "pointer-events": "auto",
         });
       }
     }
@@ -52,16 +53,28 @@ export default class Specifics {
       element.classList.contains("site-nav__item") ||
       element.classList.contains("header__link-nav") ||
       element.classList.contains("menu-item") ||
-      element.classList.contains("list-menu-has-child")
+      element.classList.contains("list-menu-has-child") ||
+      element.classList.contains("sublink") ||
+      element.classList.contains("cw-cus-header__item") ||
+      element.classList.contains("megamenu__nav_item")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
       );
       if (flowerMenuContent) {
+        const grandchild = flowerMenuContent.querySelectorAll(".grandchild");
+        grandchild.forEach((element) => {
+          const listItems = element.querySelectorAll("li");
+          listItems.forEach((li) => {
+            (li as HTMLElement).style.visibility = "visible";
+          });
+        });
+
         this.setStyle(flowerMenuContent, {
           opacity: "1",
           visibility: "visible",
+          "pointer-events": "auto",
         });
       }
     }
@@ -83,7 +96,10 @@ export default class Specifics {
         style.innerHTML = `#${newId} { opacity: 1 !important; }`;
         this.dom.head.appendChild(style);
 
-        this.setStyle(ViairMegaMenuContent, { opacity: "1" });
+        this.setStyle(ViairMegaMenuContent, {
+          opacity: "1",
+          "pointer-events": "auto",
+        });
       }
     }
   }
@@ -95,7 +111,10 @@ export default class Specifics {
         ".mega-menu__content"
       );
       if (megaMenuContent) {
-        this.setStyle(megaMenuContent, { opacity: "1" });
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          "pointer-events": "auto",
+        });
       }
     }
   }
@@ -107,7 +126,10 @@ export default class Specifics {
         ".js-mega-menu_inner"
       );
       if (megaMenuContent) {
-        this.setStyle(megaMenuContent, { display: "flex" });
+        this.setStyle(megaMenuContent, {
+          display: "flex",
+          "pointer-events": "auto",
+        });
       }
     }
   }
@@ -120,6 +142,7 @@ export default class Specifics {
           opacity: "1",
           visibility: "visible",
           top: "100%",
+          "pointer-events": "auto",
         });
       }
     }
@@ -129,7 +152,7 @@ export default class Specifics {
     if (element.id.startsWith("Details-HeaderMenu-")) {
       const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
       if (subMenu) {
-        this.setStyle(subMenu, { display: "block" });
+        this.setStyle(subMenu, { display: "block", "pointer-events": "auto" });
       }
     }
   }
@@ -146,7 +169,10 @@ export default class Specifics {
         style.innerHTML = `#${newId} { display: block !important; }`;
         this.dom.head.appendChild(style);
 
-        this.setStyle(megaMenuContent, { display: "block" });
+        this.setStyle(megaMenuContent, {
+          display: "block",
+          "pointer-events": "auto",
+        });
       }
     }
   }
@@ -158,6 +184,7 @@ export default class Specifics {
         this.setStyle(subMenu, {
           opacity: "1",
           visibility: "visible",
+          "pointer-events": "auto",
         });
       }
     }
@@ -172,6 +199,7 @@ export default class Specifics {
           visibility: "visible",
           background: "rgb(255, 255, 255)",
           transform: "scale(1)",
+          "pointer-events": "auto",
         });
       }
     }
@@ -183,7 +211,7 @@ export default class Specifics {
       const subMenu = this.getMenuContent(element, ".mega-menu-cont");
       const subRel = this.hasRel(element);
       if (subMenu && mainRel === subRel) {
-        this.setStyle(subMenu, { display: "block" });
+        this.setStyle(subMenu, { display: "block", "pointer-events": "auto" });
       }
     }
   }
@@ -192,8 +220,16 @@ export default class Specifics {
     if (element.classList.contains("nav-item")) {
       const subMenu = this.getMenuContent(element, ".sub-nav");
       if (subMenu) {
-        this.setStyle(subMenu, { display: "block" });
+        this.setStyle(subMenu, { display: "block", "pointer-events": "auto" });
       }
+    }
+  }
+
+  public handleCanvasMenuItemHover(element: HTMLElement): void {
+    if (element.classList.contains("have_dropdown")) {
+      element.classList.add("active_main");
+      const subMenu = this.getMenuContent(element, ".drop_menu_container");
+      subMenu.classList.add("active_dropdown_menu");
     }
   }
 
@@ -216,11 +252,14 @@ export default class Specifics {
       element.classList.contains("site-nav__item") ||
       element.classList.contains("header__link-nav") ||
       element.classList.contains("menu-item") ||
-      element.classList.contains("list-menu-has-child")
+      element.classList.contains("list-menu-has-child") ||
+      element.classList.contains("sublink") ||
+      element.classList.contains("cw-cus-header__item") ||
+      element.classList.contains("megamenu__nav_item")
     ) {
       const flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
       );
       if (flowerMenuContent) {
         this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
@@ -340,6 +379,14 @@ export default class Specifics {
       if (subMenu) {
         this.removeStyle(subMenu, ["display"]);
       }
+    }
+  }
+
+  public handleCanvasMenuItemClear(element: HTMLElement): void {
+    if (element.classList.contains("have_dropdown")) {
+      element.classList.remove("active_main");
+      const subMenu = this.getMenuContent(element, ".drop_menu_container");
+      subMenu.classList.remove("active_dropdown_menu");
     }
   }
 
