@@ -40,7 +40,7 @@ class HoverCapture {
     this.siteSpecifics.hideAliaPopups(this.dom);
 
     const navById = this.dom.querySelector(
-      "#main-nav, #main-menu, #header-main, #mega-menu-primary"
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header"
     ) as HTMLElement;
     const navByClass = this.dom.querySelector(
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
@@ -233,7 +233,7 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    if (this.isDevMode)
+    // if (this.isDevMode)
       console.log("Hover state captured for:", this.hoverPath);
   }
 

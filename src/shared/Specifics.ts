@@ -45,11 +45,12 @@ export default class Specifics {
       element.classList.contains("list-menu-has-child") ||
       element.classList.contains("sublink") ||
       element.classList.contains("cw-cus-header__item") ||
-      element.classList.contains("megamenu__nav_item")
+      element.classList.contains("megamenu__nav_item") ||
+      element.classList.contains("primary-nav__item")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub"
       );
     }
     return flowerMenuContent;
@@ -185,8 +186,14 @@ export default class Specifics {
   }
 
   public handleDeuxMenuItemHover(element: HTMLElement): void {
-    if (element.id.startsWith("Details-HeaderMenu-")) {
-      const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
+    if (
+      element.id.startsWith("Details-HeaderMenu-") ||
+      element.classList.contains("navbar-item")
+    ) {
+      const subMenu = this.getMenuContent(
+        element,
+        ".MainOuterCombineBgNav, .navbar-dropdown"
+      );
       if (subMenu) {
         this.setStyle(subMenu, { display: "block", "pointer-events": "auto" });
       }
@@ -230,6 +237,7 @@ export default class Specifics {
     if (element.classList.contains("menu__item")) {
       const subMenu = this.getMenuContent(element, ".header__dropdown");
       if (subMenu) {
+        subMenu.classList.add("is-visible");
         this.setStyle(subMenu, {
           opacity: "1",
           visibility: "visible",
@@ -270,11 +278,15 @@ export default class Specifics {
   }
 
   public handleEssenceMenuItemHover(element: HTMLElement): void {
-    if (element.classList.contains("flex-shrink")) {
+    if (
+      element.classList.contains("flex-shrink") ||
+      element.classList.contains("items-stretch")
+    ) {
       const subMenu = this.getMenuContent(element, "div");
       if (subMenu) {
         this.setStyle(subMenu, {
           opacity: "1",
+          visibility: "visible",
           height: "max-content",
           "pointer-events": "auto",
         });
@@ -393,6 +405,7 @@ export default class Specifics {
     if (element.classList.contains("menu__item")) {
       const subMenu = this.getMenuContent(element, ".header__dropdown");
       if (subMenu) {
+        subMenu.classList.remove("is-visible");
         this.removeStyle(subMenu, [
           "opacity",
           "visibility",
@@ -404,8 +417,14 @@ export default class Specifics {
   }
 
   public handleDeuxMenuItemHoverClear(element: HTMLElement): void {
-    if (element.id.startsWith("Details-HeaderMenu-")) {
-      const subMenu = this.getMenuContent(element, ".MainOuterCombineBgNav");
+    if (
+      element.id.startsWith("Details-HeaderMenu-") ||
+      element.classList.contains("navbar-item")
+    ) {
+      const subMenu = this.getMenuContent(
+        element,
+        ".MainOuterCombineBgNav, .navbar-dropdown"
+      );
       if (subMenu) {
         this.removeStyle(subMenu, ["display"]);
       }
@@ -450,10 +469,13 @@ export default class Specifics {
   }
 
   public handleEssenceMenuItemClear(element: HTMLElement): void {
-    if (element.classList.contains("flex-shrink")) {
+    if (
+      element.classList.contains("flex-shrink") ||
+      element.classList.contains("items-stretch")
+    ) {
       const subMenu = this.getMenuContent(element, "div");
       if (subMenu) {
-        this.removeStyle(subMenu, ["opacity", "height"]);
+        this.removeStyle(subMenu, [...this.stylesToRemove, "height"]);
       }
     }
   }
@@ -489,4 +511,21 @@ export default class Specifics {
       }
     });
   }
+
+  // public handleB2Menu(element: HTMLElement): void {
+  //   const hasOnlyB2Class =
+  //     element?.classList.length === 1 && element?.classList.contains("b2");
+
+  //   if (hasOnlyB2Class) {
+  //     const megaMenu = this.dom.getElementById(
+  //       "theme__navigation-megamenu-injected"
+  //     );
+  //     const firstChild = megaMenu?.firstElementChild as HTMLElement;
+
+  //     if (firstChild) {
+  //       firstChild.style.display = "block";
+  //       megaMenu.classList.remove("heatmap-com__hidden-element");
+  //     }
+  //   }
+  // }
 }
