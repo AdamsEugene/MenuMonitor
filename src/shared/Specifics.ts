@@ -33,6 +33,26 @@ export default class Specifics {
     return element.getAttribute("rel");
   }
 
+  private getFlowerMenu(element: HTMLElement) {
+    let flowerMenuContent: HTMLElement;
+    if (
+      element.classList.contains("site-nav--is-megamenu") ||
+      element.classList.contains("site-nav__item") ||
+      element.classList.contains("header__link-nav") ||
+      element.classList.contains("menu-item") ||
+      element.classList.contains("list-menu-has-child") ||
+      element.classList.contains("sublink") ||
+      element.classList.contains("cw-cus-header__item") ||
+      element.classList.contains("megamenu__nav_item")
+    ) {
+      flowerMenuContent = this.getMenuContent(
+        element,
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
+      );
+    }
+    return flowerMenuContent;
+  }
+
   public handleFollowMenu(element: HTMLElement): void {
     if (element.classList.contains("contains-children")) {
       const followMenuContent = this.getMenuContent(element, ".nav-rows");
@@ -48,35 +68,21 @@ export default class Specifics {
   }
 
   public handleFlowerMenu(element: HTMLElement): void {
-    if (
-      element.classList.contains("site-nav--is-megamenu") ||
-      element.classList.contains("site-nav__item") ||
-      element.classList.contains("header__link-nav") ||
-      element.classList.contains("menu-item") ||
-      element.classList.contains("list-menu-has-child") ||
-      element.classList.contains("sublink") ||
-      element.classList.contains("cw-cus-header__item") ||
-      element.classList.contains("megamenu__nav_item")
-    ) {
-      const flowerMenuContent = this.getMenuContent(
-        element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
-      );
-      if (flowerMenuContent) {
-        const grandchild = flowerMenuContent.querySelectorAll(".grandchild");
-        grandchild.forEach((element) => {
-          const listItems = element.querySelectorAll("li");
-          listItems.forEach((li) => {
-            (li as HTMLElement).style.visibility = "visible";
-          });
+    const flowerMenuContent = this.getFlowerMenu(element);
+    if (flowerMenuContent) {
+      const grandchild = flowerMenuContent.querySelectorAll(".grandchild");
+      grandchild.forEach((element) => {
+        const listItems = element.querySelectorAll("li");
+        listItems.forEach((li) => {
+          (li as HTMLElement).style.visibility = "visible";
         });
+      });
 
-        this.setStyle(flowerMenuContent, {
-          opacity: "1",
-          visibility: "visible",
-          "pointer-events": "auto",
-        });
-      }
+      this.setStyle(flowerMenuContent, {
+        opacity: "1",
+        visibility: "visible",
+        "pointer-events": "auto",
+      });
     }
   }
 
@@ -233,6 +239,19 @@ export default class Specifics {
     }
   }
 
+  public handleEssenceMenuItemHover(element: HTMLElement): void {
+    if (element.classList.contains("flex-shrink")) {
+      const subMenu = this.getMenuContent(element, "div");
+      if (subMenu) {
+        this.setStyle(subMenu, {
+          opacity: "1",
+          height: "max-content",
+          "pointer-events": "auto",
+        });
+      }
+    }
+  }
+
   public handleFollowMenuClear(element: HTMLElement): void {
     if (element.classList.contains("contains-children")) {
       const followMenuContent = this.getMenuContent(element, ".nav-rows");
@@ -247,23 +266,9 @@ export default class Specifics {
   }
 
   public handleFlowerMenuClear(element: HTMLElement): void {
-    if (
-      element.classList.contains("site-nav--is-megamenu") ||
-      element.classList.contains("site-nav__item") ||
-      element.classList.contains("header__link-nav") ||
-      element.classList.contains("menu-item") ||
-      element.classList.contains("list-menu-has-child") ||
-      element.classList.contains("sublink") ||
-      element.classList.contains("cw-cus-header__item") ||
-      element.classList.contains("megamenu__nav_item")
-    ) {
-      const flowerMenuContent = this.getMenuContent(
-        element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu"
-      );
-      if (flowerMenuContent) {
-        this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
-      }
+    const flowerMenuContent = this.getFlowerMenu(element);
+    if (flowerMenuContent) {
+      this.removeStyle(flowerMenuContent, ["opacity", "visibility"]);
     }
   }
 
@@ -387,6 +392,15 @@ export default class Specifics {
       element.classList.remove("active_main");
       const subMenu = this.getMenuContent(element, ".drop_menu_container");
       subMenu.classList.remove("active_dropdown_menu");
+    }
+  }
+
+  public handleEssenceMenuItemClear(element: HTMLElement): void {
+    if (element.classList.contains("flex-shrink")) {
+      const subMenu = this.getMenuContent(element, "div");
+      if (subMenu) {
+        this.removeStyle(subMenu, ["opacity", "height"]);
+      }
     }
   }
 
