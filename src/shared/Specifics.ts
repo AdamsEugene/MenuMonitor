@@ -47,7 +47,7 @@ export default class Specifics {
       element.classList.contains("cw-cus-header__item") ||
       element.classList.contains("megamenu__nav_item") ||
       element.classList.contains("primary-nav__item") ||
-      element.classList.contains("has-submenu") 
+      element.classList.contains("has-submenu")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
@@ -499,8 +499,20 @@ export default class Specifics {
     }
   }
 
-  public hideAliaPopups(dom: Document): void {
-    const divs = dom.querySelectorAll("div");
+  public headerNavPrimary() {
+    let subMenu: HTMLElement;
+    const headerNav = this.dom.querySelector(
+      ".header__navigation.heading__navigation--primary"
+    ) as HTMLElement;
+
+    if (headerNav) {
+      subMenu = this.getMenuContent(headerNav, ".bio-hidden.bio-bg-white");
+    }
+    return subMenu;
+  }
+
+  public hideAliaPopups(): void {
+    const divs = this.dom.querySelectorAll("div");
     divs.forEach((div) => {
       const firstChild = div.firstElementChild;
       if (
@@ -511,6 +523,18 @@ export default class Specifics {
         this.setStyle(div, { display: "block" });
       }
     });
+
+    const subMenu = this.headerNavPrimary();
+    if (subMenu) {
+      const newId = "the_id_you_added";
+      subMenu.id = newId;
+
+      const style = this.dom.createElement("style");
+      style.type = "text/css";
+      style.innerHTML = `#${newId} { opacity: 0 !important; }`;
+      this.dom.head.appendChild(style);
+      this.setStyle(subMenu, { opacity: "0" });
+    }
   }
 
   // public handleB2Menu(element: HTMLElement): void {

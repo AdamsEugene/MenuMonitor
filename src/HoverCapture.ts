@@ -37,13 +37,13 @@ class HoverCapture {
       document;
 
     this.siteSpecifics = new Specifics(this.dom);
-    this.siteSpecifics.hideAliaPopups(this.dom);
+    this.siteSpecifics.hideAliaPopups();
 
     const navById = this.dom.querySelector(
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header"
     ) as HTMLElement;
     const navByClass = this.dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden"
     ) as HTMLElement;
 
     const header =
@@ -233,7 +233,7 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    // if (this.isDevMode)
+    if (this.isDevMode)
       console.log("Hover state captured for:", this.hoverPath);
   }
 
@@ -437,6 +437,12 @@ class HoverCapture {
       this.hoverPath = [];
     } else {
       if (this.isDevMode) console.log("No hover state to clear");
+    }
+
+    const subMenu = this.siteSpecifics.headerNavPrimary();
+    if (subMenu) {
+      subMenu.removeAttribute("id");
+      subMenu.style.removeProperty("opacity");
     }
 
     this.classesToHide.forEach((cls) => {

@@ -79,7 +79,7 @@ class MenuMonitor {
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header"
     ) as HTMLElement;
     const navByClass = dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden"
     ) as HTMLElement;
 
     const headers = dom.querySelectorAll("header");
