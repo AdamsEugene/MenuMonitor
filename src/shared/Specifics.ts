@@ -49,11 +49,12 @@ export default class Specifics {
       element.classList.contains("primary-nav__item") ||
       element.classList.contains("has-submenu") ||
       element.classList.contains("header__nav-item") ||
-      element.classList.contains("navigation__item")
+      element.classList.contains("navigation__item") ||
+      element.classList.contains("sf-menu-item")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier, .sf-menu__submenu"
       );
     }
     return flowerMenuContent;
@@ -117,11 +118,16 @@ export default class Specifics {
         });
       });
 
-      this.setStyle(flowerMenuContent, {
+      let styles: { [x: string]: string } = {
         opacity: "1",
         visibility: "visible",
         "pointer-events": "auto",
-      });
+      };
+      if (flowerMenuContent.classList.contains("sf-menu__submenu")) {
+        styles = { ...styles, transform: "translateZ(0)" };
+      }
+
+      this.setStyle(flowerMenuContent, { ...styles });
     }
   }
 
@@ -353,8 +359,13 @@ export default class Specifics {
 
   public handleFlowerMenuClear(element: HTMLElement): void {
     const flowerMenuContent = this.getFlowerMenu(element);
+    let styles;
     if (flowerMenuContent) {
-      this.removeStyle(flowerMenuContent, this.stylesToRemove);
+      if (flowerMenuContent.classList.contains("sf-menu__submenu")) {
+        styles = [...this.stylesToRemove, "transform"];
+      } else styles = this.stylesToRemove;
+
+      this.removeStyle(flowerMenuContent, styles);
     }
   }
 
