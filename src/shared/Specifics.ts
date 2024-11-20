@@ -50,11 +50,14 @@ export default class Specifics {
       element.classList.contains("has-submenu") ||
       element.classList.contains("header__nav-item") ||
       element.classList.contains("navigation__item") ||
-      element.classList.contains("sf-menu-item")
+      element.classList.contains("sf-menu-item") ||
+      element.classList.contains("menu-item-has-children") ||
+      element.classList.contains("nav-item") ||
+      element.classList.contains("HorizontalList__Item")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier, .sf-menu__submenu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier, .sf-menu__submenu, .dropdown-wrap, .DropdownMenu"
       );
     }
     return flowerMenuContent;
@@ -121,6 +124,7 @@ export default class Specifics {
       let styles: { [x: string]: string } = {
         opacity: "1",
         visibility: "visible",
+        height: "max-content",
         "pointer-events": "auto",
       };
       if (flowerMenuContent.classList.contains("sf-menu__submenu")) {

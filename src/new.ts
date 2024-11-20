@@ -84,7 +84,7 @@ class MenuMonitor {
     navById = this.isElementVisible(navById) ? navById : null;
 
     let navByClass = dom.querySelector(
-      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden"
+      ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden, .header.header-fixed--true, .e-n-menu, .header__linklist.list--unstyled.hidden-pocket"
     ) as HTMLElement;
     navByClass = this.isElementVisible(navByClass) ? navByClass : null;
 
