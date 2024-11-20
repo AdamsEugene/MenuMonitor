@@ -462,6 +462,9 @@ class HoverCapture {
       subMenu.style.removeProperty("opacity");
     }
 
+    const navMb = this.dom.querySelector(".nav_mb.change") as HTMLElement;
+    if (navMb) navMb.style.removeProperty("display");
+
     this.classesToHide.forEach((cls) => {
       this.dom.querySelectorAll(cls).forEach((cl: HTMLElement) => {
         if (cl) {
