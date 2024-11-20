@@ -89,6 +89,10 @@ export default class Specifics {
     return returnElement;
   }
 
+  private getAtlantaMenu(element: HTMLElement) {
+    return this.getElementByClass(element, ["tt-submenu"], ".dropdown-menu");
+  }
+
   public handleFollowMenu(element: HTMLElement): void {
     const followMenuContent = this.getFollow(element);
     if (followMenuContent) {
@@ -322,6 +326,17 @@ export default class Specifics {
     }
   }
 
+  public handleAtlantaMenuItemHover(element: HTMLElement): void {
+    const subMenu = this.getAtlantaMenu(element);
+    if (subMenu) {
+      this.setStyle(subMenu, {
+        display: "block",
+        top: "auto",
+        "pointer-events": "auto",
+      });
+    }
+  }
+
   // // // // // // // // // // / / / / / / / // / / / /
 
   public handleFollowMenuClear(element: HTMLElement): void {
@@ -497,6 +512,13 @@ export default class Specifics {
     );
     if (subMenu) {
       this.removeStyle(subMenu, this.stylesToRemove);
+    }
+  }
+
+  public handleAtlantaMenuItemClear(element: HTMLElement): void {
+    const subMenu = this.getAtlantaMenu(element);
+    if (subMenu) {
+      this.removeStyle(subMenu, ["display", "top"]);
     }
   }
 

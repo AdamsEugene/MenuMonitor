@@ -44,15 +44,18 @@ class MenuMonitor {
   }
 
   private isElementVisible(element: Element): boolean {
-    const computedStyles = window.getComputedStyle(element);
-    const rect = element.getBoundingClientRect();
+    if (element) {
+      const computedStyles = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
 
-    return (
-      computedStyles.display !== "none" &&
-      computedStyles.visibility !== "hidden" &&
-      rect.width > 10 &&
-      rect.height > 30
-    );
+      return (
+        computedStyles.display !== "none" &&
+        computedStyles.visibility !== "hidden" &&
+        rect.width > 10 &&
+        rect.height > 30 &&
+        rect.height < 300
+      );
+    }
   }
 
   private getVisibleNavElements(container: HTMLElement | null): HTMLElement[] {
@@ -141,10 +144,17 @@ class MenuMonitor {
 
   private getFirstVisibleNav(dom: Document): HTMLElement | null {
     const navs = dom.querySelectorAll("nav") as NodeListOf<HTMLElement>;
-
     const navArray = Array.from(navs) as HTMLElement[];
 
     for (const nav of navArray) {
+      // Check for mobile menu first
+      if (
+        nav.classList.contains("panel-menu") &&
+        nav.classList.contains("mobile-main-menu")
+      ) {
+        continue; // Skip this nav element
+      }
+
       const rect = nav.getBoundingClientRect();
       const computedStyle = window.getComputedStyle(nav);
 
@@ -162,13 +172,14 @@ class MenuMonitor {
           "Skip to content"
         );
 
+      // Check all conditions
       if (
         isVisible &&
         hasChildren &&
         hasReasonableDimensions &&
         (!hasNavWrapper || !hasSkipToContent)
       ) {
-        return nav as HTMLElement;
+        return nav;
       }
     }
 

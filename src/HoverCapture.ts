@@ -109,11 +109,18 @@ class HoverCapture {
   }
 
   private getFirstVisibleNav(): HTMLElement | null {
-    const navs = document.querySelectorAll("nav") as NodeListOf<HTMLElement>;
-
+    const navs = this.dom.querySelectorAll("nav") as NodeListOf<HTMLElement>;
     const navArray = Array.from(navs) as HTMLElement[];
 
     for (const nav of navArray) {
+      // Check for mobile menu first
+      if (
+        nav.classList.contains("panel-menu") &&
+        nav.classList.contains("mobile-main-menu")
+      ) {
+        continue; // Skip this nav element
+      }
+
       const rect = nav.getBoundingClientRect();
       const computedStyle = window.getComputedStyle(nav);
 
@@ -131,13 +138,14 @@ class HoverCapture {
           "Skip to content"
         );
 
+      // Check all conditions
       if (
         isVisible &&
         hasChildren &&
         hasReasonableDimensions &&
         (!hasNavWrapper || !hasSkipToContent)
       ) {
-        return nav as HTMLElement;
+        return nav;
       }
     }
 
@@ -168,15 +176,18 @@ class HoverCapture {
   }
 
   private isElementVisible(element: Element): boolean {
-    const computedStyles = window.getComputedStyle(element);
-    const rect = element.getBoundingClientRect();
+    if (element) {
+      const computedStyles = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
 
-    return (
-      computedStyles.display !== "none" &&
-      computedStyles.visibility !== "hidden" &&
-      rect.width > 10 &&
-      rect.height > 30
-    );
+      return (
+        computedStyles.display !== "none" &&
+        computedStyles.visibility !== "hidden" &&
+        rect.width > 10 &&
+        rect.height > 30 &&
+        rect.height < 300
+      );
+    }
   }
 
   private getVisibleNavElements(container: HTMLElement): HTMLElement[] {
@@ -394,6 +405,7 @@ class HoverCapture {
     this.siteSpecifics.handleEssenceMenuItemHover(element);
     this.siteSpecifics.handleOberfieldsMenuItemHover(element);
     this.siteSpecifics.handleCustomMenuItemHover(element);
+    this.siteSpecifics.handleAtlantaMenuItemHover(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -437,6 +449,7 @@ class HoverCapture {
           this.siteSpecifics.handleEssenceMenuItemClear(item.element);
           this.siteSpecifics.handleOberfieldsMenuItemClear(item.element);
           this.siteSpecifics.handleCustomMenuItemClear(item.element);
+          this.siteSpecifics.handleAtlantaMenuItemClear(item.element);
         });
       this.hoverPath = [];
     } else {
