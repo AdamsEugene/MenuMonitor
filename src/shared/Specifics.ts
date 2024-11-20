@@ -48,11 +48,12 @@ export default class Specifics {
       element.classList.contains("megamenu__nav_item") ||
       element.classList.contains("primary-nav__item") ||
       element.classList.contains("has-submenu") ||
-      element.classList.contains("header__nav-item")
+      element.classList.contains("header__nav-item") ||
+      element.classList.contains("navigation__item")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier"
       );
     }
     return flowerMenuContent;
