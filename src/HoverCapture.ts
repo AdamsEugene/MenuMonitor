@@ -39,12 +39,15 @@ class HoverCapture {
     this.siteSpecifics = new Specifics(this.dom);
     this.siteSpecifics.hideAliaPopups();
 
-    const navById = this.dom.querySelector(
+    let navById = this.dom.querySelector(
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header"
     ) as HTMLElement;
-    const navByClass = this.dom.querySelector(
+    navById = this.isElementVisible(navById) ? navById : null;
+
+    let navByClass = this.dom.querySelector(
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden"
     ) as HTMLElement;
+    navByClass = this.isElementVisible(navByClass) ? navByClass : null;
 
     const header =
       this.findVisibleHeader() ||
@@ -52,8 +55,8 @@ class HoverCapture {
       navByClass ||
       this.getFirstVisibleNav();
     if (!header) {
-      if (this.isDevMode)
-        console.error("Error: No visible header element found.");
+      // if (this.isDevMode)
+      console.error("Error: No visible header element found.");
       return;
     }
 
@@ -69,7 +72,8 @@ class HoverCapture {
         navByClass ||
         this.getVisibleNavElements(this.headerElement)[0] ||
         this.headerElement;
-      if (this.isDevMode) console.log("header: ", this.navElement);
+      // if (this.isDevMode)
+      console.log("header: ", this.navElement);
 
       this.navElement.addEventListener(
         "mouseover",

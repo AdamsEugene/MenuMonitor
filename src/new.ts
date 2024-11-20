@@ -75,12 +75,15 @@ class MenuMonitor {
 
     this.siteSpecifics = new SiteSpecifics(dom);
 
-    const navById = dom.querySelector(
+    let navById = dom.querySelector(
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header"
     ) as HTMLElement;
-    const navByClass = dom.querySelector(
+    navById = this.isElementVisible(navById) ? navById : null;
+
+    let navByClass = dom.querySelector(
       ".viair-header-main-links, .site-control__inline-links, .site-header__element.site-header__element--sub, .elementor-widget-nav-menu, .element.element-menu, .header.header-fixed--true.is-absolute, .header.header--bordered, .navigation-wrapper.ps-leading-5, .columns.nav.mobile_hidden"
     ) as HTMLElement;
+    navByClass = this.isElementVisible(navByClass) ? navByClass : null;
 
     const headers = dom.querySelectorAll("header");
     const header =
@@ -92,7 +95,8 @@ class MenuMonitor {
       this.getFirstVisibleNav(dom);
 
     if (!header) {
-      if (this.isDevMode) console.error("Error: No header element found.");
+      // if (this.isDevMode)
+      console.error("Error: No header element found.");
       this.headerElement = null;
       return;
     }
@@ -121,7 +125,8 @@ class MenuMonitor {
         this.getFirstVisibleNav(dom) ||
         this.getVisibleNavElements(this.headerElement)[0];
       const detailsElements = this.headerElement?.querySelectorAll("details");
-      if (this.isDevMode) console.log("nav: ", this.navElement);
+      // if (this.isDevMode)
+      console.log("nav: ", this.navElement);
 
       if (this.navElement) {
         this.createHiddenElementsMap(this.navElement);

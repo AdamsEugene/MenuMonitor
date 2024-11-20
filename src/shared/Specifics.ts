@@ -47,11 +47,12 @@ export default class Specifics {
       element.classList.contains("cw-cus-header__item") ||
       element.classList.contains("megamenu__nav_item") ||
       element.classList.contains("primary-nav__item") ||
-      element.classList.contains("has-submenu")
+      element.classList.contains("has-submenu") ||
+      element.classList.contains("header__nav-item")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown"
       );
     }
     return flowerMenuContent;
