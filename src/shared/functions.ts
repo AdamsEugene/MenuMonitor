@@ -8,6 +8,7 @@ export function getRedirectType():
   const hostname = url.hostname;
   if (hostname.includes("localhost")) return "locala";
   if (hostname.includes("dashboard")) return "dashboard";
+  if (hostname.includes("portal")) return "dashboard";
   if (hostname.includes("early-release")) return "dever";
   if (hostname.includes("earlystage")) return "deves";
   return "stage";

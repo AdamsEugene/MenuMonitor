@@ -40,7 +40,7 @@ class HoverCapture {
     this.siteSpecifics.hideAliaPopups();
 
     let navById = this.dom.querySelector(
-      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader"
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader, #contech-main-navigation"
     ) as HTMLElement;
     navById = this.isElementVisible(navById) ? navById : null;
 

@@ -79,7 +79,7 @@ class MenuMonitor {
     this.siteSpecifics = new SiteSpecifics(dom);
 
     let navById = dom.querySelector(
-      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader"
+      "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader, #contech-main-navigation"
     ) as HTMLElement;
     navById = this.isElementVisible(navById) ? navById : null;
 

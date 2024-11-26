@@ -53,11 +53,12 @@ export default class Specifics {
       element.classList.contains("sf-menu-item") ||
       element.classList.contains("menu-item-has-children") ||
       element.classList.contains("nav-item") ||
-      element.classList.contains("HorizontalList__Item")
+      element.classList.contains("HorizontalList__Item") ||
+      element.classList.contains("mega-menu")
     ) {
       flowerMenuContent = this.getMenuContent(
         element,
-        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier, .sf-menu__submenu, .dropdown-wrap, .DropdownMenu"
+        ".site-nav__dropdown, .header__meganav, .dropdown-menu, .header-mega-menu, .vertical-menu_submenu, .vertical-menu_sub-submenu, .child, .cw-cus-subNav, .megamenu__submenu, .sub-menu, .nav__sub, .submenu, .dropdown, .navigation__child-tier, .sf-menu__submenu, .dropdown-wrap, .DropdownMenu, .mega-menu__content"
       );
     }
     return flowerMenuContent;
@@ -297,7 +298,8 @@ export default class Specifics {
   public handleEssenceMenuItemHover(element: HTMLElement): void {
     if (
       element.classList.contains("flex-shrink") ||
-      element.classList.contains("items-stretch")
+      element.classList.contains("items-stretch") ||
+      element.classList.contains("parent")
     ) {
       const subMenu = this.getMenuContent(element, "div");
       if (subMenu) {
@@ -504,7 +506,8 @@ export default class Specifics {
   public handleEssenceMenuItemClear(element: HTMLElement): void {
     if (
       element.classList.contains("flex-shrink") ||
-      element.classList.contains("items-stretch")
+      element.classList.contains("items-stretch") ||
+      element.classList.contains("parent")
     ) {
       const subMenu = this.getMenuContent(element, "div");
       if (subMenu) {
