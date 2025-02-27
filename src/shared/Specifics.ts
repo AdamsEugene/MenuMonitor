@@ -66,8 +66,14 @@ export default class Specifics {
 
   private getFollow(element: HTMLElement) {
     let followMenuContent: HTMLElement;
-    if (element.classList.contains("contains-children")) {
-      followMenuContent = this.getMenuContent(element, ".nav-rows");
+    if (
+      element.classList.contains("contains-children") ||
+      element.classList.contains("header-links-item")
+    ) {
+      followMenuContent = this.getMenuContent(
+        element,
+        ".nav-rows, .mega-menu-inner"
+      );
     }
     return followMenuContent;
   }
@@ -96,7 +102,11 @@ export default class Specifics {
   }
 
   private getAtlantaMenu(element: HTMLElement) {
-    return this.getElementByClass(element, ["tt-submenu"], ".dropdown-menu");
+    return this.getElementByClass(
+      element,
+      ["tt-submenu", "nav-tab-wrapper"],
+      ".dropdown-menu, .nav__dropdown"
+    );
   }
 
   public handleFollowMenu(element: HTMLElement): void {

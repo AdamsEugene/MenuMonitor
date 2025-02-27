@@ -14,10 +14,11 @@ export function getRedirectType():
   return "stage";
 }
 
-export const getThis = (item: string) => {
-  const parsedUrl = new URL(window.location.href);
-  const searchParams = new URLSearchParams(parsedUrl.search);
-  const hashParams = new URLSearchParams(parsedUrl.hash.slice(1));
+export function getIdSite(): string {
+  const url = window.location.href;
 
-  return searchParams.get(item) || hashParams.get(item) || 0;
-};
+  const regex = /\/heatmaps\/([^\/]+)/;
+  const match = url.match(regex);
+
+  return match[1];
+}

@@ -1,4 +1,4 @@
-import { getRedirectType, getThis } from "./shared/functions";
+import { getRedirectType, getIdSite } from "./shared/functions";
 import Specifics from "./shared/Specifics";
 
 interface HoverPathItem {
@@ -351,9 +351,8 @@ class HoverCapture {
 
     // Simulate click for details elements
     if (
-      getThis("idSite") === "2761" ||
-      (element.tagName.toLowerCase() === "details" &&
-        +getThis("idSite") === 1485)
+      getIdSite() === "2761" ||
+      (element.tagName.toLowerCase() === "details" && +getIdSite() === 1485)
     ) {
       console.log("Simulating click on details element");
       const clickEvent = new MouseEvent("click", {
