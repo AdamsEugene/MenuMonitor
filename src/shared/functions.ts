@@ -22,3 +22,15 @@ export function getIdSite(): string {
 
   return match[1];
 }
+
+export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
+  const headerSection = dom.querySelector<HTMLElement>(
+    ".shopify-section.shopify-section-group-header-group.section-header"
+  );
+  if (!headerSection) {
+    return null;
+  }
+  const stickyHeaders =
+    headerSection.querySelectorAll<HTMLElement>("sticky-header");
+  return stickyHeaders.length === 2 ? headerSection : null;
+}

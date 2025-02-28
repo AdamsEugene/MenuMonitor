@@ -1,4 +1,8 @@
-import { getRedirectType, getIdSite } from "./shared/functions";
+import {
+  getRedirectType,
+  getIdSite,
+  checkForTwoStickyHeaders,
+} from "./shared/functions";
 import Specifics from "./shared/Specifics";
 
 interface HoverPathItem {
@@ -39,6 +43,9 @@ class HoverCapture {
     this.siteSpecifics = new Specifics(this.dom);
     this.siteSpecifics.hideAliaPopups();
 
+    const headerByClass = checkForTwoStickyHeaders(this.dom) || null;
+    console.log("headerByClass: ", headerByClass);
+
     let navById = this.dom.querySelector(
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader, #contech-main-navigation"
     ) as HTMLElement;
@@ -50,6 +57,7 @@ class HoverCapture {
     navByClass = this.isElementVisible(navByClass) ? navByClass : null;
 
     const header =
+      headerByClass ||
       this.findVisibleHeader() ||
       navById ||
       navByClass ||
@@ -61,6 +69,7 @@ class HoverCapture {
     }
 
     this.headerElement =
+      headerByClass ||
       navById ||
       navByClass ||
       this.findLargestContainer(header) ||
@@ -68,6 +77,7 @@ class HoverCapture {
     if (this.headerElement) {
       this.attachReopenMenuListener();
       this.navElement =
+        headerByClass ||
         navById ||
         navByClass ||
         this.getVisibleNavElements(this.headerElement)[0] ||
@@ -88,7 +98,27 @@ class HoverCapture {
 
   private findVisibleHeader(): HTMLElement | null {
     const headers = Array.from(this.dom.querySelectorAll("header"));
-    return headers.find((header) => this.isElementVisible(header)) || null;
+    const visibleHeaders = headers.filter((header) =>
+      this.isElementVisible(header)
+    );
+
+    // Check if we have exactly 2 visible headers
+    if (visibleHeaders.length === 2) {
+      const headerTop = visibleHeaders.find((header) =>
+        header.classList.contains("header-top")
+      );
+      const headerMain = visibleHeaders.find((header) =>
+        header.classList.contains("header")
+      );
+
+      // If we have both a header-top and header class, return the header class
+      if (headerTop && headerMain) {
+        return headerMain;
+      }
+    }
+
+    // In all other cases, return the first visible header or null if none are visible
+    return visibleHeaders.length > 0 ? visibleHeaders[0] : null;
   }
 
   private findLargestContainer(element: HTMLElement): HTMLElement {
