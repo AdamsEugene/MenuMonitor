@@ -15,12 +15,25 @@ export function getRedirectType():
 }
 
 export function getIdSite(): string {
-  const url = window.location.href;
+  try {
+    const url = window.location.href;
 
-  const regex = /\/heatmaps\/([^\/]+)/;
-  const match = url.match(regex);
+    // Define regex to match ID after /heatmaps/
+    const regex = /\/heatmaps\/([^\/]+)/;
+    const match = url.match(regex);
 
-  return match[1];
+    // Check if match exists and has capturing group result
+    if (match && match[1]) {
+      return match[1];
+    }
+
+    // Return empty string if no match found
+    return "";
+  } catch (error) {
+    // Log error for debugging but don't throw to caller
+    console.error("Error extracting site ID from URL:", error);
+    return "";
+  }
 }
 
 export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
