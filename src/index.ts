@@ -6,6 +6,7 @@ import { getIdSite } from "./shared/functions";
 declare global {
   interface Window {
     MenuMonitor: HoverCaptureType | MenuMonitorType;
+    MenuMonitorManager: MenuMonitorManager;
   }
 }
 
@@ -19,10 +20,81 @@ const useNewAlgorithm = [
   3264, 3103, 3212, 3250,
 ];
 
-if (useNewAlgorithm.includes(+getIdSite())) {
-  window.MenuMonitor = new HoverCapture();
-  window.MenuMonitor.init();
-} else {
-  window.MenuMonitor = new MenuMonitor();
-  window.MenuMonitor.init();
+class MenuMonitorManager {
+  private _customIdSite: number | null = null;
+  private initialized = false;
+
+  constructor() {
+    // Don't initialize in constructor
+    // Let the user call init() explicitly as per existing pattern
+  }
+
+  /**
+   * Set a custom idSite value
+   * @param idSite The site ID to use
+   * @returns The current instance for method chaining
+   */
+  public setIdSite(idSite: number): MenuMonitorManager {
+    this._customIdSite = idSite;
+
+    // If we've already initialized with a different ID, reinitialize
+    if (this.initialized) {
+      this.reinitialize();
+    } else {
+      this.init();
+    }
+
+    return this;
+  }
+
+  /**
+   * Get the current idSite value
+   * @returns The current idSite value (custom or from getIdSite())
+   */
+  public getIdSite(): number {
+    return this._customIdSite !== null ? this._customIdSite : +getIdSite();
+  }
+
+  /**
+   * Initialize the MenuMonitor based on the current idSite
+   */
+  public init(): void {
+    if (this.initialized) {
+      return;
+    }
+
+    const idSite = this.getIdSite();
+
+    if (useNewAlgorithm.includes(idSite)) {
+      window.MenuMonitor = new HoverCapture();
+      console.log("====================================");
+      console.log("HoverCapture");
+      console.log("====================================");
+    } else {
+      window.MenuMonitor = new MenuMonitor();
+      console.log("====================================");
+      console.log("MenuMonitor");
+      console.log("====================================");
+    }
+
+    window.MenuMonitor.init();
+    this.initialized = true;
+  }
+
+  /**
+   * Reinitialize the MenuMonitor with the current idSite
+   */
+  private reinitialize(): void {
+    // Simply reassign and reinitialize the MenuMonitor
+    // No destroy method is called as it doesn't exist
+
+    this.initialized = false;
+    this.init();
+  }
 }
+
+// Create and expose the class
+window.MenuMonitorManager = new MenuMonitorManager();
+
+// // Export the class, not an instance
+// export default MenuMonitorManager;
