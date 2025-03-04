@@ -72,7 +72,7 @@ export default class Specifics {
     ) {
       followMenuContent = this.getMenuContent(
         element,
-        ".nav-rows, .mega-menu-inner"
+        ".nav-rows, .mega-menu-inner, .mega-menu"
       );
     }
     return followMenuContent;
