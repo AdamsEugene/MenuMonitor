@@ -38,11 +38,22 @@ export function getIdSite(): string {
 
 export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
   const headerSection = dom.querySelector<HTMLElement>(
-    ".shopify-section.shopify-section-group-header-group.section-header"
+    ".shopify-section.shopify-section-group-header-group.section-header, .header__navigation.hidden-xs.hidden-sm"
   );
   if (!headerSection) {
     return null;
   }
+
+  const shell = headerSection.querySelector<HTMLElement>(".shell");
+  if (shell) {
+    const header__navigation = shell.querySelector<HTMLElement>(
+      ".header__navigation-inner"
+    );
+    if (header__navigation) {
+      return header__navigation;
+    }
+  }
+
   const stickyHeaders =
     headerSection.querySelectorAll<HTMLElement>("sticky-header");
   return stickyHeaders.length === 2 ? headerSection : null;

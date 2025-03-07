@@ -147,10 +147,13 @@ export default class Specifics {
   }
 
   public handleViairHeader(element: HTMLElement): void {
-    if (element.classList.contains("viair-header-link-first-level")) {
+    if (
+      element.classList.contains("viair-header-link-first-level") ||
+      element.classList.contains("nav__item")
+    ) {
       const ViairMegaMenuContent = this.getMenuContent(
         element,
-        ".viair-header-mega-menu"
+        ".viair-header-mega-menu, .nav__megamenu"
       );
 
       if (ViairMegaMenuContent) {
@@ -412,11 +415,15 @@ export default class Specifics {
   }
 
   public handleViairHeaderClear(element: HTMLElement): void {
-    if (element.classList.contains("viair-header-link-first-level")) {
+    if (
+      element.classList.contains("viair-header-link-first-level") ||
+      element.classList.contains("nav__item")
+    ) {
       const ViairMegaMenuContent = this.getMenuContent(
         element,
-        ".viair-header-mega-menu"
+        ".viair-header-mega-menu, .nav__megamenu"
       );
+
       if (ViairMegaMenuContent) {
         this.removeStyle(ViairMegaMenuContent, ["opacity"]);
         ViairMegaMenuContent.removeAttribute("id");
