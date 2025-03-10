@@ -1,4 +1,4 @@
-import { getRedirectType } from "./shared/functions";
+import { checkForTwoStickyHeaders, getRedirectType } from "./shared/functions";
 import SiteSpecifics from "./shared/SiteSpecifics";
 
 class MenuMonitor {
@@ -78,6 +78,9 @@ class MenuMonitor {
 
     this.siteSpecifics = new SiteSpecifics(dom);
 
+    const headerByClass = checkForTwoStickyHeaders(dom) || null;
+    console.log("headerByClass: ", headerByClass);
+
     let navById = dom.querySelector(
       "#main-nav, #main-menu, #header-main, #mega-menu-primary, #shopify-section-meganav, #header, #site-header, #pageheader, #contech-main-navigation"
     ) as HTMLElement;
@@ -90,6 +93,7 @@ class MenuMonitor {
 
     const headers = dom.querySelectorAll("header");
     const header =
+      headerByClass ||
       Array.from(headers).filter((header) =>
         this.isElementVisible(header)
       )[0] ||
@@ -116,7 +120,11 @@ class MenuMonitor {
     }
 
     this.headerElement =
-      navById || navByClass || currentElement || this.getFirstVisibleNav(dom);
+      headerByClass ||
+      navById ||
+      navByClass ||
+      currentElement ||
+      this.getFirstVisibleNav(dom);
 
     if (this.headerElement || navById || navByClass) {
       this.attachMutationObserver();

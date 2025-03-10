@@ -278,8 +278,8 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    if (this.isDevMode)
-      console.log("Hover state captured for:", this.hoverPath);
+    // if (this.isDevMode)
+    console.log("Hover state captured for:", this.hoverPath);
   }
 
   private shouldExcludeElement(element: HTMLElement): boolean {
@@ -425,7 +425,7 @@ class HoverCapture {
     this.siteSpecifics.handleFlowerMenu(element);
     this.siteSpecifics.handlePureSportMenu(element);
     this.siteSpecifics.handleAKTMenu(element);
-    this.siteSpecifics.handleNubianceHoverClear(element);
+    this.siteSpecifics.handleNubianceHover(element);
     this.siteSpecifics.handleDeuxMenuItemHover(element);
     this.siteSpecifics.handleFourthMenuItemHover(element);
     this.siteSpecifics.handlePlusbogMenuHover(element);
@@ -469,7 +469,7 @@ class HoverCapture {
           this.siteSpecifics.handleFlowerMenuClear(item.element);
           this.siteSpecifics.handlePureSportMenuClear(item.element);
           this.siteSpecifics.handleAKTMenuClear(item.element);
-          this.siteSpecifics.handleNubianceHoverClear(item.element);
+          this.siteSpecifics.handleNubianceClear(item.element);
           this.siteSpecifics.handleDeuxMenuItemHoverClear(item.element);
           this.siteSpecifics.handleFourthMenuItemClear(item.element);
           this.siteSpecifics.handlePlusbogMenuClear(item.element);
