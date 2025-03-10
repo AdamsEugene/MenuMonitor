@@ -13,8 +13,9 @@ export default class Specifics {
     notImportant?: boolean
   ) {
     for (const [property, value] of Object.entries(styles)) {
-      if (notImportant) element.style.setProperty(property, value);
-      else element.style.setProperty(property, value, "important");
+      if (notImportant) {
+        element.style.setProperty(property, value);
+      } else element.style.setProperty(property, value, "important");
     }
   }
 
@@ -147,10 +148,13 @@ export default class Specifics {
   }
 
   public handleViairHeader(element: HTMLElement): void {
-    if (element.classList.contains("viair-header-link-first-level")) {
+    if (
+      element.classList.contains("viair-header-link-first-level") ||
+      element.classList.contains("nav__item")
+    ) {
       const ViairMegaMenuContent = this.getMenuContent(
         element,
-        ".viair-header-mega-menu"
+        ".viair-header-mega-menu, .nav__megamenu"
       );
 
       if (ViairMegaMenuContent) {
@@ -262,17 +266,36 @@ export default class Specifics {
   }
 
   public handleNubianceHover(element: HTMLElement): void {
-    if (element.classList.contains("menu__item")) {
-      const subMenu = this.getMenuContent(element, ".header__dropdown");
+    if (
+      element.classList.contains("menu__item") ||
+      element.classList.contains("menu-item")
+    ) {
+      const subMenu = this.getMenuContent(
+        element,
+        ".header__dropdown, .test.menu_1"
+      );
+
       if (subMenu) {
-        subMenu.classList.add("is-visible");
-        this.setStyle(subMenu, {
+        const commonStyles = {
           opacity: "1",
           visibility: "visible",
-          background: "rgb(255, 255, 255)",
           transform: "scale(1)",
           "pointer-events": "auto",
-        });
+        };
+
+        if (
+          subMenu.classList.contains("test") &&
+          subMenu.classList.contains("menu_1")
+        ) {
+          this.setStyle(subMenu, { ...commonStyles, top: "82.56px" });
+        } else {
+          this.setStyle(subMenu, {
+            ...commonStyles,
+            background: "rgb(255, 255, 255)",
+          });
+        }
+
+        subMenu.classList.add("is-visible");
       }
     }
   }
@@ -412,11 +435,15 @@ export default class Specifics {
   }
 
   public handleViairHeaderClear(element: HTMLElement): void {
-    if (element.classList.contains("viair-header-link-first-level")) {
+    if (
+      element.classList.contains("viair-header-link-first-level") ||
+      element.classList.contains("nav__item")
+    ) {
       const ViairMegaMenuContent = this.getMenuContent(
         element,
-        ".viair-header-mega-menu"
+        ".viair-header-mega-menu, .nav__megamenu"
       );
+
       if (ViairMegaMenuContent) {
         this.removeStyle(ViairMegaMenuContent, ["opacity"]);
         ViairMegaMenuContent.removeAttribute("id");
@@ -446,9 +473,15 @@ export default class Specifics {
     }
   }
 
-  public handleNubianceHoverClear(element: HTMLElement): void {
-    if (element.classList.contains("menu__item")) {
-      const subMenu = this.getMenuContent(element, ".header__dropdown");
+  public handleNubianceClear(element: HTMLElement): void {
+    if (
+      element.classList.contains("menu__item") ||
+      element.classList.contains("menu-item")
+    ) {
+      const subMenu = this.getMenuContent(
+        element,
+        ".header__dropdown, .test.menu_1"
+      );
       if (subMenu) {
         subMenu.classList.remove("is-visible");
         this.removeStyle(subMenu, [
