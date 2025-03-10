@@ -278,8 +278,8 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    // if (this.isDevMode)
-    console.log("Hover state captured for:", this.hoverPath);
+    if (this.isDevMode)
+      console.log("Hover state captured for:", this.hoverPath);
   }
 
   private shouldExcludeElement(element: HTMLElement): boolean {
