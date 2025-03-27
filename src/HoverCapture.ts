@@ -435,6 +435,7 @@ class HoverCapture {
     this.siteSpecifics.handleOberfieldsMenuItemHover(element);
     this.siteSpecifics.handleCustomMenuItemHover(element);
     this.siteSpecifics.handleAtlantaMenuItemHover(element);
+    this.siteSpecifics.handleGodzillaMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -479,6 +480,7 @@ class HoverCapture {
           this.siteSpecifics.handleOberfieldsMenuItemClear(item.element);
           this.siteSpecifics.handleCustomMenuItemClear(item.element);
           this.siteSpecifics.handleAtlantaMenuItemClear(item.element);
+          this.siteSpecifics.handleGodzillaMenuClear(item.element);
         });
       this.hoverPath = [];
     } else {

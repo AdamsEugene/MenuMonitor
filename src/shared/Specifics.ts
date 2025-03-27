@@ -189,6 +189,28 @@ export default class Specifics {
     }
   }
 
+  public handleGodzillaMenu(element: HTMLElement): void {
+    if (element.classList.contains("header-navigation__list-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header-nav__mega-menu"
+      );
+
+      let transform = "matrix(1, 0, 0, 1, 0, 665.219)";
+      if (element.querySelector("div")?.textContent === "Explore") {
+        transform = "matrix(1, 0, 0, 1, 0, 550.219)";
+      }
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          transform,
+          "pointer-events": "auto",
+        });
+      }
+    }
+  }
+
   public handlePureSportMenu(element: HTMLElement): void {
     if (element.classList.contains("ps-relative")) {
       const megaMenuContent = this.getMenuContent(
@@ -459,6 +481,18 @@ export default class Specifics {
       );
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, { display: "none" }, true);
+      }
+    }
+  }
+
+  public handleGodzillaMenuClear(element: HTMLElement): void {
+    if (element.classList.contains("header-navigation__list-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header-nav__mega-menu"
+      );
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "transform"]);
       }
     }
   }
