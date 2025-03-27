@@ -37,8 +37,18 @@ export function getIdSite(): string {
 }
 
 export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
+  const ninjamenus1 = dom.querySelector<HTMLElement>("#ninjamenus1");
+  if (ninjamenus1) {
+    return ninjamenus1;
+  }
+
+  const navigation__tier1 = dom.querySelector<HTMLElement>(".navigation__tier-1-container");
+  if (navigation__tier1) {
+    return navigation__tier1;
+  }
+
   const headerSection = dom.querySelector<HTMLElement>(
-    ".shopify-section.shopify-section-group-header-group.section-header, .header__navigation.hidden-xs.hidden-sm, .section-header.ctnr.ctnr-sm.js-header, .menu-container"
+    ".shopify-section.shopify-section-group-header-group.section-header, .header__navigation.hidden-xs.hidden-sm, .section-header.ctnr.ctnr-sm.js-header, .menu-container,"
   );
   if (!headerSection) {
     return null;
