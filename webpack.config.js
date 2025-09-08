@@ -20,7 +20,7 @@ module.exports = {
     },
   },
   output: {
-    filename: "MenuMonitor.js",
+    filename: "MenuMonitorManager.js",
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {

@@ -278,8 +278,8 @@ class HoverCapture {
       this.hoverPath = newPath;
     }
 
-    // if (this.isDevMode)
-    console.log("Hover state captured for:", this.hoverPath);
+    if (this.isDevMode)
+      console.log("Hover state captured for:", this.hoverPath);
   }
 
   private shouldExcludeElement(element: HTMLElement): boolean {
@@ -435,6 +435,42 @@ class HoverCapture {
     this.siteSpecifics.handleOberfieldsMenuItemHover(element);
     this.siteSpecifics.handleCustomMenuItemHover(element);
     this.siteSpecifics.handleAtlantaMenuItemHover(element);
+    this.siteSpecifics.handleGodzillaMenu(element);
+    this.siteSpecifics.handleBetterForYouMenu(element);
+    this.siteSpecifics.handleFragrancesMenu(element);
+    this.siteSpecifics.handleSnowCosmeticsMenu(element);
+    this.siteSpecifics.handleAnthrosMenu(element);
+    this.siteSpecifics.handleThickAssGlassMenu(element);
+    this.siteSpecifics.handleModernGentsMenu(element);
+    this.siteSpecifics.handleashleystewartMenu(element);
+    this.siteSpecifics.handlepanalesonlineMenuclear(element);
+    this.siteSpecifics.handlelaligneMenu(element);
+    this.siteSpecifics.handlesavethegirlMenu(element);
+    this.siteSpecifics.handlepimpantMenu(element);
+    this.siteSpecifics.handlePowerleteMenu(element);
+    this.siteSpecifics.handleLaPanaleraMenu(element);
+    this.siteSpecifics.handleCanopyMenu(element);
+    this.siteSpecifics.handleBioLyteMenu(element);
+    this.siteSpecifics.handleBebaMenu(element);
+    this.siteSpecifics.handleMarshallUniversityMenu(element);
+    this.siteSpecifics.handleNolanInteriorMenu(element);
+    this.siteSpecifics.handleKinnMenu(element);
+    this.siteSpecifics.handleArcticBlueMenu(element);
+    this.siteSpecifics.handleLoomLoftMenu(element);
+    this.siteSpecifics.handleRiflePaperMenu(element);
+    this.siteSpecifics.handleRiflePapertopMenu(element);
+    this.siteSpecifics.handlee3dMenu(element);
+    this.siteSpecifics.handlecheckmybodyhealthMenu(element);
+    this.siteSpecifics.handleProjectHoneyBeesMenu(element);
+    this.siteSpecifics.handleArb4x4Menu(element);
+    this.siteSpecifics.handleMedlyMenu(element);
+    this.siteSpecifics.handleMantraMenu(element);
+    this.siteSpecifics.handleCosyHouseMenu(element);
+    this.siteSpecifics.handleDripDropMenu(element);
+    this.siteSpecifics.handleQuipMenu(element);
+    this.siteSpecifics.handleVeloraMenu(element);
+    this.siteSpecifics.handleDrIdrissMenu(element);
+    this.siteSpecifics.handlehockeyshotMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -479,6 +515,42 @@ class HoverCapture {
           this.siteSpecifics.handleOberfieldsMenuItemClear(item.element);
           this.siteSpecifics.handleCustomMenuItemClear(item.element);
           this.siteSpecifics.handleAtlantaMenuItemClear(item.element);
+          this.siteSpecifics.handleGodzillaMenuClear(item.element);
+          this.siteSpecifics.handleBetterForYouMenuClear(item.element);
+          this.siteSpecifics.handleFragrancesMenuClear(item.element);
+          this.siteSpecifics.handleSnowCosmeticsMenuclear(item.element);
+          this.siteSpecifics.handleAnthrosMenuclear(item.element);
+          this.siteSpecifics.handleThickAssGlassMenuclear(item.element);
+          this.siteSpecifics.handleModernGentsMenuclear(item.element);
+          this.siteSpecifics.handleashleystewartMenuclear(item.element);
+          this.siteSpecifics.handlepanalesonlineMenuclear(item.element);
+          this.siteSpecifics.handlelaligneMenuclear(item.element);
+          this.siteSpecifics.handlesavethegirlMenuclear(item.element);
+          this.siteSpecifics.handlepimpantMenuclear(item.element);
+          this.siteSpecifics.handlePowerleteMenuclear(item.element);
+          this.siteSpecifics.handleLaPanaleraMenuclear(item.element);
+          this.siteSpecifics.handleCanopyMenuclear(item.element);
+          this.siteSpecifics.handleBioLyteMenuclear(item.element);
+          this.siteSpecifics.handleBebaMenuclear(item.element);
+          this.siteSpecifics.handleMarshallUniversityMenuclear(item.element);
+          this.siteSpecifics.handleNolanInteriorMenuclear(item.element);
+          this.siteSpecifics.handleKinnMenuclear(item.element);
+          this.siteSpecifics.handleArcticBlueMenuclear(item.element);
+          this.siteSpecifics.handleLoomLoftMenuclear(item.element);
+          this.siteSpecifics.handleRiflePaperMenuclear(item.element);
+          this.siteSpecifics.handleRiflePapertopMenuclear(item.element);
+          this.siteSpecifics.handlee3dMenuclear(item.element);
+          this.siteSpecifics.handlecheckmybodyhealthMenuclear(item.element);
+          this.siteSpecifics.handleProjectHoneyBeesMenuclear(item.element);
+          this.siteSpecifics.handleArb4x4Menuclear(item.element);
+          this.siteSpecifics.handleMedlyMenuclear(item.element);
+          this.siteSpecifics.handleMantraMenuclear(item.element);
+          this.siteSpecifics.handleCosyHouseMenuclear(item.element);
+          this.siteSpecifics.handleDripDropMenuclear(item.element);
+          this.siteSpecifics.handleQuipMenuclear(item.element);
+          this.siteSpecifics.handleVeloraMenuclear(item.element);
+          this.siteSpecifics.handleDrIdrissMenuclear(item.element);
+          this.siteSpecifics.handlehockeyshotMenuclear(item.element);
         });
       this.hoverPath = [];
     } else {
