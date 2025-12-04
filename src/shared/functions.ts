@@ -42,9 +42,74 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return ninjamenus1;
   }
 
+  const site_navigation_small_hide = dom.querySelector<HTMLElement>(".text-center .site-nav.site-navigation");
+  if (site_navigation_small_hide) {
+    return site_navigation_small_hide;
+  }
+
+  const BT5 = dom.querySelector<HTMLElement>(".BT5 nav.navbar.navbar-expand-lg");
+  if (BT5) {
+    return BT5;
+  }
+
+  const desktop_only = dom.querySelector<HTMLElement>(".desktop-only .navigation.navigation--main");
+  if (desktop_only) {
+    return desktop_only;
+  }
+
+  const nav_btns_desktop = dom.querySelector<HTMLElement>(".nav-btns.desktop .nav.navbar-nav");
+  if (nav_btns_desktop) {
+    return nav_btns_desktop;
+  }
+
+  const bottom_nav__desktop = dom.querySelector<HTMLElement>(".container-fluid.relative .bottom-nav__desktop");
+  if (bottom_nav__desktop) {
+    return bottom_nav__desktop;
+  }
+
+  const nav_nav_bar = dom.querySelector<HTMLElement>("section nav.nav-bar");
+  if (nav_nav_bar) {
+    return nav_nav_bar;
+  }
+
+  const mobile_hidden = dom.querySelector<HTMLElement>("#shopify-section-header header nav.py-4.mobile\\:hidden.relative");
+  if (mobile_hidden) {
+    return mobile_hidden;
+  }
+
+  const header_menu_1 = dom.querySelector<HTMLElement>("#header-menu-1.header-menu-1.menu-container");
+  if (header_menu_1) {
+    return header_menu_1;
+  }
+
+  const tmenu_app_horizontal = dom.querySelector<HTMLElement>(".tmenu_wrapper.tmenu--fullwidth nav.tmenu_navbar.tmenu_app.tmenu_initialized.tmenu_transition_none.tmenu_alignment_center.tmenu_skin_undefined.tmenu_app--horizontal");
+  if (tmenu_app_horizontal) {
+    return tmenu_app_horizontal;
+  }
+
+  const header__inline_navigation = dom.querySelector<HTMLElement>(".header__wrapper-center nav.header__inline-navigation.hidden-phone");
+  if (header__inline_navigation) {
+    return header__inline_navigation;
+  }
+
   const nav__menuholders = dom.querySelector<HTMLElement>(".nav__menu-holder");
   if (nav__menuholders) {
     return nav__menuholders;
+  }
+
+  const header__container_bottom = dom.querySelector<HTMLElement>(".container.header__container.header__container--bottom");
+  if (header__container_bottom) {
+    return header__container_bottom;
+  }
+
+  const siteHeader = dom.querySelector<HTMLElement>("header#siteHeader");
+  if (siteHeader) {
+    return siteHeader;
+  }
+
+  const x_headers = dom.querySelectorAll<HTMLElement>("x-header.header.rowabi-none-border-mb");
+  if (x_headers.length >= 2) {
+    return x_headers[1];
   }
 
   const header_layout_center_split = dom.querySelector<HTMLElement>(".header-layout.header-layout--center-split .header-item.header-item--logo-split");
@@ -125,6 +190,11 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
   const site_nav = dom.querySelector<HTMLElement>(".page-width .site-nav");
   if (site_nav) {
     return site_nav;
+  }
+
+  const header_grid_wrapper = dom.querySelector<HTMLElement>(".header_grid_wrapper");
+  if (header_grid_wrapper) {
+    return header_grid_wrapper;
   }
 
   const Nav__First = dom.querySelector<HTMLElement>(".Header__FlexItem.Header__FlexItem--fill .Header__MainNav.Nav__First");

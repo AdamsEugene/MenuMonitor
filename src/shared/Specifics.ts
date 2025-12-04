@@ -287,6 +287,87 @@ export default class Specifics {
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, {
           visibility: "visible",
+          opacity: "1",
+        });
+      }
+    }
+  }
+
+  public handlechocolateMenu(element: HTMLElement): void {
+    if (element.classList.contains("relative")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        "ul.absolute.z-50.opacity-0.invisible"
+      );
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible",
+          opacity: "1",
+          scale: "1",
+        });
+      }
+    }
+  }
+
+  public handleIvyCityMenu(element: HTMLElement): void {
+    if (element.classList.contains("header-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header-menu-content"
+      );
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible",
+          opacity: "1",
+          transform: "translateY(0)",
+        });
+      }
+    }
+  }
+
+  public handlepiniparmaMenu(element: HTMLElement): void {
+    if (element.classList.contains("mm-header-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mm-mega-menu-wrapper"
+      );
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+        });
+      }
+    }
+  }
+
+  public handlejosephjosephMenu(element: HTMLElement): void {
+    if (element.classList.contains("hd-Navigation_Item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".hd-Navigation_Dropdown"
+      );
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+        });
+      }
+    }
+  }
+
+  public handlebrodoMenu(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".sub-menu"
+      );
+
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          left: "0",
         });
       }
     }
@@ -576,32 +657,98 @@ export default class Specifics {
         this.setStyle(megaMenuContent, {
           opacity: "1 !important",
           display: "block !important",
-          top: "100% !important",
+          top: "42.19px !important",
+        });
+      }
+    }
+  }
+
+  public handleMechMaxxMenu(element: HTMLElement): void {
+    if (element.classList.contains("header__menu-vertical")) {
+      const megaMenuContent = this.getMenuContent(element, "desktop-navigation.vertical-menu");
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+          opacity: "1",
+          visibility: "visible",
+        });
+        
+        const submenuHolder = megaMenuContent.querySelector(".header__linklist.list--unstyled .header__linklist-item .nav-dropdown-grid");
+        if (submenuHolder) {
+          this.setStyle(submenuHolder as HTMLElement, {
+            opacity: "1",
+            visibility: "visible"
+          });
+        }
+      }
+    }
+  }
+
+  public handleFeuersteinSwitzerlandMenu(element: HTMLElement): void {
+    if (element.classList.contains("nav__link__holder")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav__submenu.nav__submenu--regular"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+          transform: 'matrix(1, 0, 0, 1, -100, 0)',
+        });
+      }
+    }
+  }
+
+  public handlenaturesblaststoreMenu(element: HTMLElement): void {
+    if (element.classList.contains("header__menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__menu.header__menu--level-2"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handle1922cannabisretailMenu(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".sub-menu.nav-dropdown.nav-dropdown-simple"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible !important",
+          opacity: "1 !important",
+          left: "-15px !important",
         });
       }
     }
   }
 
   public handlecheckmybodyhealthMenu(element: HTMLElement): void {
-    if (element.classList.contains("submenu") && element.classList.contains("mega-menu")) {
-        const megaMenuContent = this.getMenuContent(
-            element,
-            ".submenu-holder.container--large.submenu-holder--promotion-width-fourth"
-        );
-        if (megaMenuContent) {
-            this.setStyle(megaMenuContent, {
-                opacity: "1",
-                visibility: "visible",
-            });
-            
-            // Apply styles to parent element
-            this.setStyle(element, {
-                display: "block",
-                opacity: "1",
-                visibility: "visible",
-                background: "white",
-            });
+    if (element.classList.contains("has-submenu")) {
+      const megaMenuContent = this.getMenuContent(element, ".submenu.mega-menu");
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+          opacity: "1",
+          visibility: "visible",
+          background: "white"
+        });
+        
+        const submenuHolder = megaMenuContent.querySelector(".submenu-holder.container--large");
+        if (submenuHolder) {
+          this.setStyle(submenuHolder as HTMLElement, {
+            opacity: "1",
+            visibility: "visible"
+          });
         }
+      }
     }
   }
 
@@ -743,6 +890,210 @@ export default class Specifics {
       const megaMenuContent = this.getMenuContent(
         element,
         ".site-nav__megamenu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handlehockeystickmanMenu(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav-submenu.nav-megamenu-container"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+          "clip-path": "polygon(0 0, 100% 0, 100% calc(100% + 15px), 0 calc(100% + 15px))",
+        });
+      }
+    }
+  }
+
+  public handleGymProLuxeMenu(element: HTMLElement): void {
+    if (element.classList.contains("menu_item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".menu_container"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handlePremiumSaunasMenu(element: HTMLElement): void {
+    if (element.classList.contains("buddha-menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mm-submenu.tabbed.mm-last-level"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          top: "100% !important",
+          display: "block !important",
+        });
+      }
+    }
+  }
+
+  public handleRevitalashMenu(element: HTMLElement): void {
+    if (element.classList.contains("nav-list__item")) {
+      const megaMenuContent = this.getMenuContent(element, ".dd-mega-menu");
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, { 
+          opacity: "1" 
+        });
+        
+        const megaMenuContainer = megaMenuContent.querySelector(".mx-auto.dd-mega-menu__container");
+        if (megaMenuContainer) {
+          this.setStyle(megaMenuContainer as HTMLElement, {
+            "content-visibility": "visible"
+          });
+        }
+      }
+    }
+  }
+
+  public handleTheSabiMenu(element: HTMLElement): void {
+    if (element.classList.contains("nav__link__holder")) {
+      const megaMenuContent = this.getMenuContent(element, ".nav__submenu.nav__submenu--mega.row.fancy-scroll");
+        
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible",
+          opacity: "1",
+          transform: "translate(0%)"
+        });
+        
+        const megaLinkHolders = megaMenuContent.querySelectorAll(".nav__link__holder--mega");
+        
+        megaLinkHolders.forEach((innerElement: Element) => {
+          this.setStyle(innerElement as HTMLElement, {
+            display: "block"
+          });
+        });
+      }
+    }
+  }
+
+  public handleearthingharmonyMenu(element: HTMLElement): void {
+    if (element.classList.contains("m-menu__item--parent")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".m-mega-menu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible",
+          transform: "translateZ(0)",
+        });
+      }
+    }
+  }
+
+  public handlewithingsMenu(element: HTMLElement): void {
+    if (element.classList.contains("category-box")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".category-value"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          'clip-path': "inset(0)",
+          opacity: "1",
+        });
+      }
+    }
+  }
+
+  public handlebijoubuildMenu(element: HTMLElement): void {
+    if (element.classList.contains("nav__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".child-menu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handleambrosiaMenu(element: HTMLElement): void {
+    if (element.classList.contains("has-submenu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".submenu.normal-menu "
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          background: "white",
+        });
+      }
+    }
+  }
+
+  public handleginovaMenu(element: HTMLElement): void {
+    if (element.classList.contains("item-level-0")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".menu_sub.style_wide.sub-menu-dropdown"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+          transform: "translate (0, 10px)",
+          "min-width": "1440px",
+        });
+      }
+    }
+  }
+
+  public handleadaptnaturalsMenu(element: HTMLElement): void {
+    if (element.classList.contains("rtnu-header__nav-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".rtnu-header__dropdown"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1 !important",
+          visibility: "visible",
+        });
+      }
+    }
+  }
+
+  public handleimpulsMenu(element: HTMLElement): void {
+    if (element.classList.contains("vtex-menu-2-x-submenuContainer")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".vtex-menu-2-x-submenuWrapper"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "flex !important",
+        });
+      }
+    }
+  }
+
+  public handlekeystonehardscapesMenu(element: HTMLElement): void {
+    if (element.classList.contains("dropdown")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".dropdown-menu"
       );
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, {
@@ -1097,7 +1448,72 @@ export default class Specifics {
       );
 
       if (megaMenuContent) {
-        this.removeStyle(megaMenuContent, ["visibility"]);
+        this.removeStyle(megaMenuContent, ["visibility", "opacity"]);
+      }
+    }
+  }
+
+  public handlechocolateMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("relative")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        "ul.absolute.z-50.opacity-0.invisible"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["visibility", "opacity", "scale"]);
+      }
+    }
+  }
+
+  public handleIvyCityMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header-menu-content"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["visibility", "opacity", "transform"]);
+      }
+    }
+  }
+
+  public handlepiniparmaMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("mm-header-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mm-mega-menu-wrapper"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity"]);
+      }
+    }
+  }
+
+  public handlejosephjosephMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("hd-Navigation_Item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".hd-Navigation_Dropdown"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility"]);
+      }
+    }
+  }
+
+  public handlebrodoMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".sub-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["left"]);
       }
     }
   }
@@ -1350,18 +1766,70 @@ export default class Specifics {
     }
   }
 
+  public handleFeuersteinSwitzerlandMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("nav__link__holder")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav__submenu.nav__submenu--regular"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility", "transform"]);
+      }
+    }
+  }
+
+  public handlenaturesblaststoreMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header__menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__menu.header__menu--level-2"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handle1922cannabisretailMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".sub-menu.nav-dropdown.nav-dropdown-simple"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility", "left"]);
+      }
+    }
+  }
+
   public handlecheckmybodyhealthMenuclear(element: HTMLElement): void {
-    if (element.classList.contains("submenu") && element.classList.contains("mega-menu")) {
-        const megaMenuContent = this.getMenuContent(
-            element,
-            ".submenu-holder.container--large.submenu-holder--promotion-width-fourth"
-        );
-        if (megaMenuContent) {
-            this.removeStyle(megaMenuContent, ["opacity", "visibility"]);
-            
-            // Remove styles from parent element
-            this.removeStyle(element, ["display", "opacity", "visibility", "background"]);
+    if (element.classList.contains("has-submenu")) {
+      const megaMenuContent = this.getMenuContent(element, ".submenu.mega-menu");
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display", "opacity", "visibility", "background"]);
+        
+        const submenuHolder = megaMenuContent.querySelector(".submenu-holder.container--large");
+        if (submenuHolder) {
+          this.removeStyle(submenuHolder as HTMLElement, ["opacity", "visibility"]);
         }
+      }
+    }
+  }
+
+  public handleMechMaxxMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header__menu-vertical")) {
+      const megaMenuContent = this.getMenuContent(element, "desktop-navigation.vertical-menu");
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display", "opacity", "visibility"]);
+        
+        const submenuHolder = megaMenuContent.querySelector(".header__linklist.list--unstyled .header__linklist-item .nav-dropdown-grid");
+        if (submenuHolder) {
+          this.removeStyle(submenuHolder as HTMLElement, ["opacity", "visibility"]);
+        }
+      }
     }
   }
 
@@ -1487,6 +1955,177 @@ export default class Specifics {
       const megaMenuContent = this.getMenuContent(
         element,
         ".site-nav__megamenu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handlehockeystickmanMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav-submenu.nav-megamenu-container"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility", "clip-path"] );
+      }
+    }
+  }
+
+  public handleGymProLuxeMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("menu_item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".menu_container"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handlePremiumSaunasMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("buddha-menu-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mm-submenu.tabbed.mm-last-level"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["top", "opacity", "display"]);
+      }
+    }
+  }
+
+  public handleRevitalashMenuClear(element: HTMLElement): void {
+    if (element.classList.contains("nav-list__item")) {
+      const megaMenuContent = this.getMenuContent(element, ".dd-mega-menu");
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity"]);
+        
+        const megaMenuContainer = megaMenuContent.querySelector(".mx-auto.dd-mega-menu__container");
+        if (megaMenuContainer) {
+          this.removeStyle(megaMenuContainer as HTMLElement, ["content-visibility"]);
+        }
+      }
+    }
+  }
+
+  public handleTheSabiMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("nav__link__holder")) {
+      const megaMenuContent = this.getMenuContent(element, ".nav__submenu.nav__submenu--mega.row.fancy-scroll");
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["visibility", "opacity", "transform"]);
+        
+        const megaLinkHolders = megaMenuContent.querySelectorAll(".nav__link__holder--mega");
+        megaLinkHolders.forEach((innerElement: Element) => {
+          this.removeStyle(innerElement as HTMLElement, ["display"]);
+        });
+      }
+    }
+  }
+
+  public handleearthingharmonyMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("m-menu__item--parent")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".m-mega-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["visibility", "transform"]);
+      }
+    }
+  }
+
+  public handlewithingsMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("category-box")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".category-value"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "clip-path"]);
+      }
+    }
+  }
+
+  public handlebijoubuildMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("nav__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".child-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handleambrosiaMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("has-submenu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".submenu.normal-menu "
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["background"]);
+      }
+    }
+  }
+
+  public handleginovaMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("item-level-0")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".menu_sub.style_wide.sub-menu-dropdown"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility", "transform", "min-width"]);
+      }
+    }
+  }
+
+  public handleadaptnaturalsMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("rtnu-header__nav-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".rtnu-header__dropdown"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility"]);
+      }
+    }
+  }
+
+  public handleimpulsMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("vtex-menu-2-x-submenuContainer ")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".vtex-menu-2-x-submenuWrapper"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handlekeystonehardscapesMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("dropdown")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".dropdown-menu"
       );
 
       if (megaMenuContent) {

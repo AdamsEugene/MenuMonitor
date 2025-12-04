@@ -471,6 +471,28 @@ class HoverCapture {
     this.siteSpecifics.handleVeloraMenu(element);
     this.siteSpecifics.handleDrIdrissMenu(element);
     this.siteSpecifics.handlehockeyshotMenu(element);
+    this.siteSpecifics.handleRevitalashMenu(element);
+    this.siteSpecifics.handleGymProLuxeMenu(element);
+    this.siteSpecifics.handlePremiumSaunasMenu(element);
+    this.siteSpecifics.handleTheSabiMenu(element);
+    this.siteSpecifics.handle1922cannabisretailMenu(element);
+    this.siteSpecifics.handlenaturesblaststoreMenu(element);
+    this.siteSpecifics.handleMantraMenu(element);
+    this.siteSpecifics.handleFeuersteinSwitzerlandMenu(element);
+    this.siteSpecifics.handleearthingharmonyMenu(element);
+    this.siteSpecifics.handlewithingsMenu(element);
+    this.siteSpecifics.handlebijoubuildMenu(element);
+    this.siteSpecifics.handleambrosiaMenu(element);
+    this.siteSpecifics.handlechocolateMenu(element);
+    this.siteSpecifics.handlepiniparmaMenu(element);
+    this.siteSpecifics.handleIvyCityMenu(element);
+    this.siteSpecifics.handlebrodoMenu(element);
+    this.siteSpecifics.handlejosephjosephMenu(element);
+    this.siteSpecifics.handleginovaMenu(element);
+    this.siteSpecifics.handleadaptnaturalsMenu(element);
+    this.siteSpecifics.handlehockeystickmanMenu(element);
+    this.siteSpecifics.handleimpulsMenu(element);
+    this.siteSpecifics.handlekeystonehardscapesMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -551,6 +573,28 @@ class HoverCapture {
           this.siteSpecifics.handleVeloraMenuclear(item.element);
           this.siteSpecifics.handleDrIdrissMenuclear(item.element);
           this.siteSpecifics.handlehockeyshotMenuclear(item.element);
+          this.siteSpecifics.handleRevitalashMenuClear(item.element);
+          this.siteSpecifics.handleGymProLuxeMenuclear(item.element);
+          this.siteSpecifics.handlePremiumSaunasMenuclear(item.element);
+          this.siteSpecifics.handleTheSabiMenuclear(item.element);
+          this.siteSpecifics.handle1922cannabisretailMenuclear(item.element);
+          this.siteSpecifics.handlenaturesblaststoreMenuclear(item.element);
+          this.siteSpecifics.handleMantraMenuclear(item.element);
+          this.siteSpecifics.handleFeuersteinSwitzerlandMenuclear(item.element);
+          this.siteSpecifics.handleearthingharmonyMenuclear(item.element);
+          this.siteSpecifics.handlewithingsMenuclear(item.element);
+          this.siteSpecifics.handlebijoubuildMenuclear(item.element);
+          this.siteSpecifics.handleambrosiaMenuclear(item.element);
+          this.siteSpecifics.handlechocolateMenuclear(item.element);
+          this.siteSpecifics.handlepiniparmaMenuclear(item.element);
+          this.siteSpecifics.handleIvyCityMenuclear(item.element);
+          this.siteSpecifics.handlebrodoMenuclear(item.element);
+          this.siteSpecifics.handlejosephjosephMenuclear(item.element);
+          this.siteSpecifics.handleginovaMenuclear(item.element);
+          this.siteSpecifics.handleadaptnaturalsMenuclear(item.element);
+          this.siteSpecifics.handleimpulsMenuclear(item.element);
+          this.siteSpecifics.handlehockeystickmanMenuclear(item.element);
+          this.siteSpecifics.handlekeystonehardscapesMenuclear(item.element);
         });
       this.hoverPath = [];
     } else {
