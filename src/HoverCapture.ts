@@ -493,6 +493,11 @@ class HoverCapture {
     this.siteSpecifics.handlehockeystickmanMenu(element);
     this.siteSpecifics.handleimpulsMenu(element);
     this.siteSpecifics.handlekeystonehardscapesMenu(element);
+    this.siteSpecifics.handlewhitemountainpuzzlesMenu(element);
+    this.siteSpecifics.handleholdupdisplaysMenu(element);
+    this.siteSpecifics.handledaisyjewelleryMenu(element);
+    this.siteSpecifics.handleoakywoodMenu(element);
+    this.siteSpecifics.handlerhobackMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -595,6 +600,11 @@ class HoverCapture {
           this.siteSpecifics.handleimpulsMenuclear(item.element);
           this.siteSpecifics.handlehockeystickmanMenuclear(item.element);
           this.siteSpecifics.handlekeystonehardscapesMenuclear(item.element);
+          this.siteSpecifics.handlewhitemountainpuzzlesMenuclear(item.element);
+          this.siteSpecifics.handleholdupdisplaysMenuclear(item.element);
+          this.siteSpecifics.handledaisyjewelleryMenuclear(item.element);
+          this.siteSpecifics.handleoakywoodMenuclear(item.element);
+          this.siteSpecifics.handlerhobackMenuclear(item.element);
         });
       this.hoverPath = [];
     } else {

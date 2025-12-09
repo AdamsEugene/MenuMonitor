@@ -52,6 +52,21 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return BT5;
   }
 
+  const td_nav = dom.querySelector<HTMLElement>(".row.expanded .small-12.columns.td-nav");
+  if (td_nav) {
+    return td_nav;
+  }
+
+  const list_none = dom.querySelector<HTMLElement>("nav.fixed ul.list-none");
+  if (list_none) {
+    return list_none;
+  }
+
+  const section_holder = dom.querySelector<HTMLElement>(".section_holder .header_items");
+  if (section_holder) {
+    return section_holder;
+  }
+
   const desktop_only = dom.querySelector<HTMLElement>(".desktop-only .navigation.navigation--main");
   if (desktop_only) {
     return desktop_only;

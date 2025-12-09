@@ -963,6 +963,23 @@ export default class Specifics {
     }
   }
 
+  public handlerhobackMenu(element: HTMLElement): void {
+    if (element.id === "header") {
+      const megaMenuContent = this.getMenuContent(element, ".origin-top");
+      if (megaMenuContent && megaMenuContent.getAttribute("data-comp") === "DesktopMenu") {
+        this.setStyle(megaMenuContent, { 
+          transform: "matrix(1, 0, 0, 1, 0, 0)" 
+        });
+        const megaMenuContainer = megaMenuContent.querySelector("nav.mx-auto.flex");
+        if (megaMenuContainer) {
+          this.setStyle(megaMenuContainer as HTMLElement, {
+            display: "block"
+          });
+        }
+      }
+    }
+  }
+
   public handleTheSabiMenu(element: HTMLElement): void {
     if (element.classList.contains("nav__link__holder")) {
       const megaMenuContent = this.getMenuContent(element, ".nav__submenu.nav__submenu--mega.row.fancy-scroll");
@@ -1098,6 +1115,63 @@ export default class Specifics {
       if (megaMenuContent) {
         this.setStyle(megaMenuContent, {
           display: "block",
+        });
+      }
+    }
+  }
+
+  public handlewhitemountainpuzzlesMenu(element: HTMLElement): void {
+    if (element.classList.contains("navigation__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".navigation__tier-2-container.navigation__child-tier"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+        });
+      }
+    }
+  }
+
+  public handleholdupdisplaysMenu(element: HTMLElement): void {
+    if (element.classList.contains("header-navigation")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav-menu-wrapper"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handledaisyjewelleryMenu(element: HTMLElement): void {
+    if (element.classList.contains("top_menu_item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".submenu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handleoakywoodMenu(element: HTMLElement): void {
+    if (element.classList.contains("mobile-menu-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
         });
       }
     }
@@ -2016,6 +2090,20 @@ export default class Specifics {
     }
   }
 
+  public handlerhobackMenuclear(element: HTMLElement): void {
+    if (element.id === "header") {
+      const megaMenuContent = this.getMenuContent(element, ".origin-top");
+      if (megaMenuContent && megaMenuContent.getAttribute("data-comp") === "DesktopMenu") {
+        this.removeStyle(megaMenuContent, ["transform"]);
+        
+        const megaMenuContainer = megaMenuContent.querySelector("nav.mx-auto.flex");
+        if (megaMenuContainer) {
+          this.removeStyle(megaMenuContainer as HTMLElement, ["display"]);
+        }
+      }
+    }
+  }
+
   public handleTheSabiMenuclear(element: HTMLElement): void {
     if (element.classList.contains("nav__link__holder")) {
       const megaMenuContent = this.getMenuContent(element, ".nav__submenu.nav__submenu--mega.row.fancy-scroll");
@@ -2126,6 +2214,58 @@ export default class Specifics {
       const megaMenuContent = this.getMenuContent(
         element,
         ".dropdown-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handlewhitemountainpuzzlesMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("navigation__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".navigation__tier-2-container.navigation__child-tier"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility"]);
+      }
+    }
+  }
+
+  public handleholdupdisplaysMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header-navigation")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".nav-menu-wrapper"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handleoakywoodMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("mobile-menu-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity"]);
+      }
+    }
+  }
+
+  public handledaisyjewelleryMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("top_menu_item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".submenu"
       );
 
       if (megaMenuContent) {
