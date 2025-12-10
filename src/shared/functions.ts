@@ -52,6 +52,11 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return BT5;
   }
 
+  const header_middle_left = dom.querySelector<HTMLElement>("header.header.header--middle-left.page-width.header--has-menu");
+  if (header_middle_left) {
+    return header_middle_left;
+  }
+
   const td_nav = dom.querySelector<HTMLElement>(".row.expanded .small-12.columns.td-nav");
   if (td_nav) {
     return td_nav;

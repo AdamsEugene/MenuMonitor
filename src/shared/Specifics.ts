@@ -1046,6 +1046,34 @@ export default class Specifics {
     }
   }
 
+  public handleaerifyrecoveryMenu(element: HTMLElement): void {
+    if (element.classList.contains("header-custom__link--wrapper")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__mega--wrapper"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handlelaifentechMenu(element: HTMLElement): void {
+    if (element.classList.contains("menuitem-mega")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__item__v2"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          visibility: "visible",
+        });
+      }
+    }
+  }
+
   public handleambrosiaMenu(element: HTMLElement): void {
     if (element.classList.contains("has-submenu")) {
       const megaMenuContent = this.getMenuContent(
@@ -2153,6 +2181,32 @@ export default class Specifics {
 
       if (megaMenuContent) {
         this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handleaerifyrecoveryMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header-custom__link--wrapper")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__mega--wrapper"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handlelaifentechMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("menuitem-mega")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__item__v2"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["visibility"]);
       }
     }
   }
