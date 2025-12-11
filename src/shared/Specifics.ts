@@ -884,6 +884,21 @@ export default class Specifics {
     }
   }
 
+  public handleorbislifestyleMenu(element: HTMLElement): void {
+    if (element.classList.contains("lsg-header__menu-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".lsg-header__megamenu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          height: "auto",
+        });
+      }
+    }
+  }
+
   public handlehappyvMenu(element: HTMLElement): void {
     if (element.classList.contains("mega-menu")) {
       const megaMenuContent = this.getMenuContent(
@@ -2090,6 +2105,19 @@ export default class Specifics {
 
       if (megaMenuContent) {
         this.removeStyle(megaMenuContent, ["display"]);
+      }
+    }
+  }
+
+  public handleorbislifestyleMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("lsg-header__menu-link")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".lsg-header__megamenu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "height"]);
       }
     }
   }
