@@ -870,6 +870,20 @@ export default class Specifics {
     }
   }
 
+  public handleprintfreshMenu(element: HTMLElement): void {
+    if (element.matches(".list-menu.list-menu--inline > li")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__content.color-scheme-8"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
   public handleDrIdrissMenu(element: HTMLElement): void {
     if (element.classList.contains("header-navigation__item")) {
       const megaMenuContent = this.getMenuContent(
@@ -2035,6 +2049,19 @@ export default class Specifics {
 
       if (megaMenuContent) {
         this.removeStyle(megaMenuContent, ["visibility", "opacity"]);
+      }
+    }
+  }
+
+  public handleprintfreshMenuclear(element: HTMLElement): void {
+    if (element.matches(".list-menu.list-menu--inline > li")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__content.color-scheme-8"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
       }
     }
   }
