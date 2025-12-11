@@ -47,6 +47,11 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return site_navigation_small_hide;
   }
 
+  const form_header = dom.querySelector<HTMLElement>("form header");
+  if (form_header) {
+    return form_header;
+  }
+
   const BT5 = dom.querySelector<HTMLElement>(".BT5 nav.navbar.navbar-expand-lg");
   if (BT5) {
     return BT5;
