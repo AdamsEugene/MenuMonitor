@@ -870,6 +870,20 @@ export default class Specifics {
     }
   }
 
+  public handlehappyvMenu(element: HTMLElement): void {
+    if (element.classList.contains("mega-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__content"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
   public handleprintfreshMenu(element: HTMLElement): void {
     if (element.matches(".list-menu.list-menu--inline > li")) {
       const megaMenuContent = this.getMenuContent(
@@ -2049,6 +2063,19 @@ export default class Specifics {
 
       if (megaMenuContent) {
         this.removeStyle(megaMenuContent, ["visibility", "opacity"]);
+      }
+    }
+  }
+
+  public handlehappyvMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("mega-menu")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".mega-menu__content"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
       }
     }
   }

@@ -501,6 +501,7 @@ class HoverCapture {
     this.siteSpecifics.handleaerifyrecoveryMenu(element);
     this.siteSpecifics.handlelaifentechMenu(element);
     this.siteSpecifics.handleprintfreshMenu(element);
+    this.siteSpecifics.handlehappyvMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -611,6 +612,7 @@ class HoverCapture {
           this.siteSpecifics.handleaerifyrecoveryMenuclear(item.element);
           this.siteSpecifics.handlelaifentechMenuclear(item.element);
           this.siteSpecifics.handleprintfreshMenuclear(item.element);
+          this.siteSpecifics.handlehappyvMenuclear(item.element);
         });
       this.hoverPath = [];
     } else {
