@@ -42,6 +42,11 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return ninjamenus1;
   }
 
+  const nav_bar__inner = dom.querySelector<HTMLElement>(".nav-bar__inner .container");
+  if (nav_bar__inner) {
+    return nav_bar__inner;
+  }
+
   const site_navigation_small_hide = dom.querySelector<HTMLElement>(".text-center .site-nav.site-navigation");
   if (site_navigation_small_hide) {
     return site_navigation_small_hide;
@@ -92,10 +97,6 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return bottom_nav__desktop;
   }
 
-  const nav_nav_bar = dom.querySelector<HTMLElement>("section nav.nav-bar");
-  if (nav_nav_bar) {
-    return nav_nav_bar;
-  }
 
   const mobile_hidden = dom.querySelector<HTMLElement>("#shopify-section-header header nav.py-4.mobile\\:hidden.relative");
   if (mobile_hidden) {
