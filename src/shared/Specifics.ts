@@ -870,6 +870,20 @@ export default class Specifics {
     }
   }
 
+  public handleAmikaMenu(element: HTMLElement): void {
+    if (element.classList.contains("group/parent")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".hidden"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+      }
+    }
+  }
+
   public handlehappyvMenu(element: HTMLElement): void {
     if (element.classList.contains("mega-menu")) {
       const megaMenuContent = this.getMenuContent(
@@ -2063,6 +2077,19 @@ export default class Specifics {
 
       if (megaMenuContent) {
         this.removeStyle(megaMenuContent, ["visibility", "opacity"]);
+      }
+    }
+  }
+
+  public handleAmikaMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("group/parent")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".hidden"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
       }
     }
   }
