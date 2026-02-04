@@ -47,6 +47,21 @@ export function checkForTwoStickyHeaders(dom: Document): HTMLElement | null {
     return nav_bar__inner;
   }
 
+  const site_header__element = dom.querySelector<HTMLElement>(".site-header__element.site-header__element--sub.test123");
+  if (site_header__element) {
+    return site_header__element;
+  }
+
+  const main_nav_desktop_only = dom.querySelector<HTMLElement>("main-navigation#main-nav.desktop-only");
+  if (main_nav_desktop_only) {
+    return main_nav_desktop_only;
+  }
+
+  const logo_area = dom.querySelector<HTMLElement>("#pageheader .logo-area.container.container--no-max");
+  if (logo_area) {
+    return logo_area;
+  }
+
   const site_navigation_small_hide = dom.querySelector<HTMLElement>(".text-center .site-nav.site-navigation");
   if (site_navigation_small_hide) {
     return site_navigation_small_hide;

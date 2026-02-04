@@ -505,6 +505,10 @@ class HoverCapture {
     this.siteSpecifics.handleAmikaMenu(element);
     this.siteSpecifics.handleorbislifestyleMenu(element);
     this.siteSpecifics.handlehighlandstyleMenu(element);
+    this.siteSpecifics.handleultrafootballMenu(element);
+    this.siteSpecifics.handlebarnaklMenu(element);
+    this.siteSpecifics.handleeliteautogearMenu(element);
+    this.siteSpecifics.handlejackmasonbrandMenu(element);
 
     if (this.isDevMode) console.log("Simulated hover for:", element);
   }
@@ -619,6 +623,10 @@ class HoverCapture {
           this.siteSpecifics.handleAmikaMenuclear(item.element);
           this.siteSpecifics.handleorbislifestyleMenuclear(item.element);
           this.siteSpecifics.handlehighlandstyleMenuclear(item.element);
+          this.siteSpecifics.handleultrafootballMenuclear(item.element);
+          this.siteSpecifics.handlebarnaklMenuclear(item.element);
+          this.siteSpecifics.handleeliteautogearMenuclear(item.element);
+          this.siteSpecifics.handlejackmasonbrandMenuclear(item.element);
         });
       this.hoverPath = [];
     } else {

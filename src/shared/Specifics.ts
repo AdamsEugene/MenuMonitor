@@ -1,3 +1,5 @@
+import { Transform } from "stream";
+
 export default class Specifics {
   private dom: Document;
 
@@ -914,6 +916,53 @@ export default class Specifics {
     }
   }
 
+  public handleultrafootballMenu(element: HTMLElement): void {
+    if (element.classList.contains("site-nav--has-dropdown")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".site-nav__dropdown"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          display: "block",
+        });
+      }
+    }
+  }
+
+  public handlebarnaklMenu(element: HTMLElement): void {
+    if (element.classList.contains("header-dropdown__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__submenu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          display: "block",
+          transform: "translateY(0)",
+        });
+      }
+    }
+  }
+
+  public handleeliteautogearMenu(element: HTMLElement): void {
+    if (element.classList.contains("navigation-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".navigation-sub-menu"
+      );
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          opacity: "1",
+          visibility: "visible",
+          transform: "translateY(0)",
+        });
+      }
+    }
+  }
+
   public handlehappyvMenu(element: HTMLElement): void {
     if (element.classList.contains("mega-menu")) {
       const megaMenuContent = this.getMenuContent(
@@ -1068,6 +1117,27 @@ export default class Specifics {
         megaLinkHolders.forEach((innerElement: Element) => {
           this.setStyle(innerElement as HTMLElement, {
             display: "block"
+          });
+        });
+      }
+    }
+  }
+
+  public handlejackmasonbrandMenu(element: HTMLElement): void {
+    if (element.classList.contains("top-level-menu-item")) {
+      const megaMenuContent = this.getMenuContent(element, ".dropdown-wrapper");
+        
+      if (megaMenuContent) {
+        this.setStyle(megaMenuContent, {
+          display: "block",
+        });
+        
+        const megaLinkHolders = megaMenuContent.querySelectorAll(".dropdown");
+        
+        megaLinkHolders.forEach((innerElement: Element) => {
+          this.setStyle(innerElement as HTMLElement, {
+            visibility: "visible",
+            opacity: "1",
           });
         });
       }
@@ -2150,6 +2220,45 @@ export default class Specifics {
     }
   }
 
+  public handleultrafootballMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("site-nav--has-dropdown")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".site-nav__dropdown"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "display"] );
+      }
+    }
+  }
+
+  public handlebarnaklMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("header-dropdown__item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".header__submenu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "display", "transform"] );
+      }
+    }
+  }
+
+  public handleeliteautogearMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("navigation-item")) {
+      const megaMenuContent = this.getMenuContent(
+        element,
+        ".navigation-sub-menu"
+      );
+
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["opacity", "visibility", "transform"] );
+      }
+    }
+  }
+
   public handlehappyvMenuclear(element: HTMLElement): void {
     if (element.classList.contains("mega-menu")) {
       const megaMenuContent = this.getMenuContent(
@@ -2278,6 +2387,20 @@ export default class Specifics {
         const megaLinkHolders = megaMenuContent.querySelectorAll(".nav__link__holder--mega");
         megaLinkHolders.forEach((innerElement: Element) => {
           this.removeStyle(innerElement as HTMLElement, ["display"]);
+        });
+      }
+    }
+  }
+
+  public handlejackmasonbrandMenuclear(element: HTMLElement): void {
+    if (element.classList.contains("top-level-menu-item")) {
+      const megaMenuContent = this.getMenuContent(element, ".dropdown-wrapper");
+      if (megaMenuContent) {
+        this.removeStyle(megaMenuContent, ["display"]);
+        
+        const megaLinkHolders = megaMenuContent.querySelectorAll(".dropdown");
+        megaLinkHolders.forEach((innerElement: Element) => {
+          this.removeStyle(innerElement as HTMLElement, ["visibility", "opacity"]);
         });
       }
     }
